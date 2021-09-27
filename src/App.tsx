@@ -1,26 +1,62 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Auth from "./auth/Auth"
 
-function App() {
+type StateType = {
+  username: string,
+  sessionToken: string | null,
+  userRole: string,
+  userId: string
+}
+
+// type PropsType = {
+//   updateSessionToken: (newToken: string) => void;
+//   updateUserRole: (newUserRole: string) => void;
+//   clearToken: (clearToken: null) => void;
+// }
+
+export default class App extends React.Component <{}, StateType> {
+  constructor(props: StateType){
+    super(props); 
+    this.state = {
+      username: "",
+      sessionToken: "",
+      userRole: "",
+      userId: "",
+    }
+  }
+
+updateSessionToken = (newToken: string) => {
+  localStorage.setItem("sessionToken", newToken);
+  this.setState({sessionToken: newToken});
+}
+
+updateUsername = (newUsername: string) => {
+  localStorage.getItem("sessionToken")
+  this.setState({username: newUsername});
+}
+
+updateRole = (newUserRole: string) => {
+  localStorage.getItem("sessionToken")
+  this.setState({userRole: newUserRole})
+}
+
+clearToken = () => {
+  localStorage.clear();
+  this.setState({sessionToken: ""});
+}
+
+// protectedViews = () => {
+  
+// }
+
+  render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Auth sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole}/>
     </div>
   );
 }
+}
 
-export default App;
+
