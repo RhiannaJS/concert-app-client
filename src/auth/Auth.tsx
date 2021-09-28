@@ -21,7 +21,9 @@ class Auth extends React.Component <PropsType, {}> {
         this.state = {
             sessionToken: "",
             userRole: "",
-            username: ""
+            username: "",
+            // updateSessionToken: "",
+            // upddateUserRole: "",
         }
     }
 
@@ -32,9 +34,13 @@ class Auth extends React.Component <PropsType, {}> {
             <h1>Auth Component</h1>
             
             <div className="loginDiv">
-            <Register updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/>
+            {/* <Register updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/> */}
+
             {/* <Login updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/> */}
-            {Login ? <Login updateUserRole={this.props.updateUserRole} updateSessionToken={this.props.updateSessionToken}/>  :  <Register updateUserRole={this.props.updateUserRole} updateSessionToken={this.props.updateSessionToken}/>}
+
+            {Login ? <Login sessionToken={this.props.sessionToken} updateUserRole={this.props.updateUserRole} updateSessionToken={this.props.updateSessionToken}/>  :  
+
+            <Register updateUserRole={this.props.updateUserRole} updateSessionToken={this.props.updateSessionToken}/>}
             </div>
             {/* <ConcertIndex sessionToken={this.props.sessionToken} userRole={this.props.userRole} username={this.props.username} /> */}
             </div>

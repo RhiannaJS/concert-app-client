@@ -3,10 +3,14 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
+import ConcertIndex from "../concerts/ConcertIndex"
 
 type PropsType = {
     updateSessionToken: (newToken: string) => void;
     updateUserRole: (newUserRole: string) => void;
+    sessionToken: string | null,
+    // userRole: string,
+    // username: string;
 }
 
 type StateType ={
@@ -27,6 +31,7 @@ export default class Login extends React.Component <PropsType, StateType>{
     }
 
     handleSubmit = (event: any) =>{
+        console.log("handlesSubmit hit")
         event.preventDefault();
         fetch("http://localhost:3000/user/login", {
             method: "POST",
@@ -38,15 +43,17 @@ export default class Login extends React.Component <PropsType, StateType>{
             (response) => response.json()
         ) .then((data)=> {
             this.props.updateSessionToken(data.sessionToken)
+            console.log(data)
         }) .catch (err=> console.log(err))
     }
 
     changeHandlerUsername(event: any){
         this.setState({username: event.target.value})
+        console.log(this.state.username)
     }
 
     changeHandlerPassword(event: any){
-        this.setState({username: event.target.value})
+        this.setState({password: event.target.value})
     }
 
     changeHandlerEmail(event:any){
@@ -58,7 +65,7 @@ export default class Login extends React.Component <PropsType, StateType>{
         return(
             <div>
             <h1>Login Component</h1>
-    <Box onSubmit={this.handleSubmit}
+    <Box 
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -95,8 +102,9 @@ export default class Login extends React.Component <PropsType, StateType>{
           }}
         />
             </div>
+            <Button variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(event)}>Login</Button>
             </Box>
-            <Button variant="contained" color="secondary" type="submit">Login</Button>
+            {/* <ConcertIndex updateSessionToken={this.props.updateSessionToken} userRole={this.props.userRole} username={this.props.username} /> */}
             </div>
         )
         }

@@ -46,7 +46,7 @@ class Register extends React.Component <PropsType, StateType> {
         }
 
         changeHandlerPassword(event: any){
-            this.setState({username: event.target.value})
+            this.setState({password: event.target.value})
         }
 
         changeHandlerEmail(event:any){

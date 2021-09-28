@@ -1,45 +1,66 @@
 import React from "react";
+import ConcertDisplay from "./ConcertDisplay"
+
+type Concerts = {
+    bandName: string,
+    openingAct: string,
+    dateAttended: string,
+    location: string,
+    description: string,
+    comment: string,
+}
 
 type StateType = {
-//    concerts: string,
-  }
-  
-  type PropsType = {
+   concertsList: Concerts[], 
    
   }
 
+type PropsType = {
+    sessionToken: string | null,
+    userRole: string;
+    username: string;
+}  
+  
+
+
 class ConcertIndex extends React.Component <PropsType, StateType> {
-    constructor(props:any){
-        super(props);
+    constructor(props: PropsType){
+        super(props)
         this.state={
-            // concerts: "",
-
+            concertsList: [],
+            
+            }
         }
-    }
-
-// componentDidMount(){
-//     fetchConcerts("http://localhost:3000/concerts", {
-//         method: "GET",
-//         headers: new Headers ({
-//             "Content-Type" : "application/json",
-//             "Authorization" : `Bearer ${this.props.sessionToken}`
-//         }
-//     }) .then (
-//         (res)=> res.json()
-//     ) .then((logData)=>{
-//        this.state.concerts(logData)
-//        console.log(logData)
-//     })
-// }
-
-    render(){
-        return(
-            <div>
-                <h1>ConcertIndex Component</h1>
-                
-            </div>
-        )
-    }
+        
+        componentDidMount(){
+            fetch("http://localhost:3000/concerts/mine", {
+            method: "GET",
+            headers : new Headers ({
+                "Content-Type": "application/json",
+                "Authorization" : `Bearer ${this.props.sessionToken}`
+            })
+        })
+            .then(res=>res.json())
+            .then(json=> this.setState({concertsList: json.results}))
+            .catch(e=> console.log(e))
+            
+        }
+            render(){
+                return(
+                    <div>
+                    <h1>ConcertIndex Component</h1>
+                    {
+                        this.state.concertsList.map((current, index)=>{
+                            return(
+                             <ConcertDisplay key={index} concerts={current}/>  
+                            )
+                        })
+                    }
+                    
+                    </div>
+                    )
+                }
 }
 
+            
 export default ConcertIndex;

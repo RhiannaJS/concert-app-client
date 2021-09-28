@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Auth from "./auth/Auth"
+import ConcertIndex from "./concerts/ConcertIndex"
 
 type StateType = {
   username: string,
@@ -29,31 +30,41 @@ export default class App extends React.Component <{}, StateType> {
 updateSessionToken = (newToken: string) => {
   localStorage.setItem("sessionToken", newToken);
   this.setState({sessionToken: newToken});
+  console.log("sessionToken", newToken)
 }
 
 updateUsername = (newUsername: string) => {
-  localStorage.getItem("sessionToken")
+  localStorage.setItem("username", newUsername)
   this.setState({username: newUsername});
+  console.log("userName", newUsername)
 }
 
 updateRole = (newUserRole: string) => {
-  localStorage.getItem("sessionToken")
-  this.setState({userRole: newUserRole})
+  if(newUserRole !== null){
+    this.setState({userRole: newUserRole})
+    localStorage.setItem("userRole", "false")
+    console.log("userRole", newUserRole)
 }
 
-clearToken = () => {
-  localStorage.clear();
-  this.setState({sessionToken: ""});
-}
+// clearToken = () => {
+//   localStorage.clear();
+//   this.setState({sessionToken: "", userRole: "false"});
+// }
 
 // protectedViews = () => {
+//   return this.state.sessionToken === localStorage.getItem("sessionToken") ? (
+//     localStorage.getItem("userRole") === "true" ? (
+
+//     )
+//   )
   
-// }
+}
 
   render(){
   return (
     <div className="App">
     <Auth sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole}/>
+    {/* <ConcertIndex /> */}
     </div>
   );
 }
