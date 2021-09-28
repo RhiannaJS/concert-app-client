@@ -12,10 +12,12 @@ type Concerts = {
 
 type StateType = {
    concertsList: Concerts[], 
+  
    
   }
 
 type PropsType = {
+    concertToUpdate: any;
     sessionToken: string | null,
     userRole: string;
     username: string;
@@ -28,6 +30,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         super(props)
         this.state={
             concertsList: [],
+            
             
             }
         }
@@ -45,6 +48,8 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             .catch(e=> console.log(e))
             
         }
+
+
             render(){
                 return(
                     <div>

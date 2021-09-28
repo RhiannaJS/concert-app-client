@@ -7,8 +7,15 @@ type StateType = {
   username: string,
   sessionToken: string | null,
   userRole: string,
-  userId: string
+  userId: string,
+  concertToUpdate: any,
+  updateActive: any,
 }
+
+// type PropsType = {
+//   // concertToUpdate: {},
+//   sessionToken: string | null,
+// }
 
 // type PropsType = {
 //   updateSessionToken: (newToken: string) => void;
@@ -24,9 +31,27 @@ export default class App extends React.Component <{}, StateType> {
       sessionToken: "",
       userRole: "",
       userId: "",
+      concertToUpdate: "",
+      updateActive: false,
     }
-    // this.protectedViews = this.protectedViews.bind(this)
+    this.protectedViews = this.protectedViews.bind(this)
   }
+
+// componentDidMount(){
+//   fetchConcerts = ()=> {
+//     fetch("http://localhost:3000/concerts", {
+//       method: "GET",
+//       headers: new Headers ({
+//         "Content-Type": "application/json",
+//         "Authorization": `Bearer${this.props.sessionToken}`
+//       })
+//     }).then((res)=> res.json())
+//     .then((logData)=>{
+//       this.setState.concertsList(logData)
+//       console.log(logData)
+//     })
+//     }
+// }
 
 updateSessionToken = (newToken: string) => {
   localStorage.setItem("sessionToken", newToken);
@@ -52,10 +77,24 @@ clearToken = () => {
   this.setState({sessionToken: "", userRole: "false"});
 }
 
+
+updateConcert = (concert:any) =>{
+  this.state.concertToUpdate(concert);
+  console.log(concert)
+}
+
+updateOn = () =>{
+  this.state.updateActive(true)
+}
+
+updateOff = () =>{
+  this.state.updateActive(false)
+}
+
 protectedViews = () => {
   return (this.state.sessionToken === localStorage.getItem("sessionToken") ? 
 
-  <ConcertIndex sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/> : 
+  <ConcertIndex concertToUpdate={this.state.concertToUpdate} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/> : 
 
   <Auth sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole}/>)
 
