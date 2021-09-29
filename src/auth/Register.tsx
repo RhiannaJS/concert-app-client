@@ -25,10 +25,11 @@ class Register extends React.Component <PropsType, StateType> {
         }
 
     }
+    // Register Fetch
         // componentDidUpdate()?
         handleSubmit = (event: any) => {
             event.preventDefault();
-            fetch("http://localhost:3000/user/register", {
+            fetch("http://localhost:4000/user/register", {
                 method: "POST",
                 body: JSON.stringify({user: {username: this.state.username, password: this.state.password}}),
                 headers: new Headers ({
@@ -53,12 +54,13 @@ class Register extends React.Component <PropsType, StateType> {
             this.setState({email: event.target.value})
         }
 
-    
+    // Register Form and button
     render(){
         return(
             <div>
-                <h1>Register to use My Concert Experience!</h1>
-                <Box onSubmit={this.handleSubmit}
+                <h1>Welcome to My Concert Experience!</h1>
+                <h3>Please create an account</h3>
+                <Box 
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -96,7 +98,7 @@ class Register extends React.Component <PropsType, StateType> {
         />
             </div>
             </Box>
-            <Button variant="contained" color="secondary" type="submit">Register</Button>
+            <Button variant="contained" color="primary" onClick={(event)=>this.handleSubmit(event)}>Register</Button>
             </div>
         )
         }

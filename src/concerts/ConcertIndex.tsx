@@ -1,7 +1,21 @@
 import React from "react";
 import ConcertDisplay from "./ConcertDisplay"
 
+// THIS FILE SHOULD CONTAIN EDIT BUTTON SHOULD HAVE A FUNCTION THAT RUNS IF THE USER IS NEW AND HAS NO CONCERTS TO SHOW YET???.  IF TIME ADD A SEARCH BAR TO SEARCH FOR OTHERS CONCERT POSTS
+
+
+interface ConcertDetails{
+    id: string,
+    bandName: string,
+    openingAct: string,
+    dateAttended: string,
+    location: string,
+    description: string,
+    comment: string,
+}
+
 type Concerts = {
+    id: string,
     bandName: string,
     openingAct: string,
     dateAttended: string,
@@ -17,10 +31,12 @@ type StateType = {
   }
 
 type PropsType = {
-    concertToUpdate: any;
+    // concertToUpdate: any;
     sessionToken: string | null,
     userRole: string;
     username: string;
+    concerts?: Concerts []
+    updateConcertId: (newConcertId: string)=> void,
 }  
   
 
@@ -30,42 +46,43 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         super(props)
         this.state={
             concertsList: [],
+            // concerts: []
             
             
             }
         }
         
         componentDidMount(){
-            fetch("http://localhost:3000/concerts/mine", {
+        // fetchConcerts = () => {
+            fetch("http://localhost:4000/concerts/mine", {
             method: "GET",
             headers : new Headers ({
                 "Content-Type": "application/json",
-                "Authorization" : `Bearer ${this.props.sessionToken}`
+                "Authorization" : `${this.props.sessionToken}`
             })
         })
             .then(res=>res.json())
-            .then(json=> this.setState({concertsList: json.results}))
+            .then(json=> this.setState({concertsList: json}))
             .catch(e=> console.log(e))
             
         }
+    
+        componentDidUpdate(){
+            console.log(this.state.concertsList)
+        }
 
-
-            render(){
-                return(
-                    <div>
+        render(){
+            return(
+                <div>
                     <h1>ConcertIndex Component</h1>
-                    {
-                        this.state.concertsList.map((current, index)=>{
-                            return(
-                             <ConcertDisplay key={index} concerts={current}/>  
-                            )
-                        })
-                    }
+                    <ConcertDisplay concerts={this.state.concertsList} />
+                  
                     
                     </div>
                     )
                 }
 }
+
 
             
 export default ConcertIndex;

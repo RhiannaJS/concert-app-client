@@ -2,14 +2,21 @@ import React from 'react';
 import './App.css';
 import Auth from "./auth/Auth"
 import ConcertIndex from "./concerts/ConcertIndex"
+// import {v4 as uuid} from "uuid";
+import uuid from "uuid";
+import {Route, Link, Switch, BrowserRouter as Router} from "react-router-dom";
+import Admin from "./auth/Admin"
 
 type StateType = {
   username: string,
   sessionToken: string | null,
   userRole: string,
   userId: string,
-  concertToUpdate: any,
+  concertId: string,
+  // updateConcertId: ()=> void,
   updateActive: any,
+  concertToUpdate: string
+
 }
 
 // type PropsType = {
@@ -31,27 +38,13 @@ export default class App extends React.Component <{}, StateType> {
       sessionToken: "",
       userRole: "",
       userId: "",
-      concertToUpdate: "",
+      // updateConcert: "",
       updateActive: false,
+      concertId: "",
+      concertToUpdate: ""
     }
     this.protectedViews = this.protectedViews.bind(this)
   }
-
-// componentDidMount(){
-//   fetchConcerts = ()=> {
-//     fetch("http://localhost:3000/concerts", {
-//       method: "GET",
-//       headers: new Headers ({
-//         "Content-Type": "application/json",
-//         "Authorization": `Bearer${this.props.sessionToken}`
-//       })
-//     }).then((res)=> res.json())
-//     .then((logData)=>{
-//       this.setState.concertsList(logData)
-//       console.log(logData)
-//     })
-//     }
-// }
 
 updateSessionToken = (newToken: string) => {
   localStorage.setItem("sessionToken", newToken);
@@ -68,19 +61,23 @@ updateUsername = (newUsername: string) => {
 updateRole = (newUserRole: string) => {
   if(newUserRole !== null){
     this.setState({userRole: newUserRole})
-    localStorage.setItem("userRole", "false")
+    localStorage.setItem("userRole", "user")
     console.log("userRole", newUserRole)
-}}
+}} 
 
 clearToken = () => {
   localStorage.clear();
-  this.setState({sessionToken: "", userRole: "false"});
+  this.setState({sessionToken: "", userRole: "user"});
 }
 
 
-updateConcert = (concert:any) =>{
-  this.state.concertToUpdate(concert);
-  console.log(concert)
+// updateConcert = (updateConcert:any) =>{
+//   this.state.concertToUpdate(updateConcert);
+//   console.log(updateConcert)
+// }
+
+updateConcertId = (newConcertId: string) => {
+  this.setState({ concertId: newConcertId})
 }
 
 updateOn = () =>{
@@ -92,19 +89,23 @@ updateOff = () =>{
 }
 
 protectedViews = () => {
-  return (this.state.sessionToken === localStorage.getItem("sessionToken") ? 
+  return (
+    
+    this.state.sessionToken === localStorage.getItem("sessionToken") ? 
+    
+    
+    (<ConcertIndex updateConcertId={this.updateConcertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/>) : (
+      
+      <Auth /*sessionToken = {this.state.sessionToken}*/ userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole}/>)
+      
+      // (localStorage.getItem("userRole") === "user") ? (
+      
+        // : (<Admin />)
 
-  <ConcertIndex concertToUpdate={this.state.concertToUpdate} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/> : 
-
-  <Auth sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole}/>)
-
-  //   localStorage.getItem("userRole") === "true" ? (
-
-  //   )
-  // )
+    
+  )
   
-}
-
+    }
   render(){
   return (
     <div className="App">
