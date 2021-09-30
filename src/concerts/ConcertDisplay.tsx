@@ -22,8 +22,10 @@ type Concerts = {
 }
 
 type PropsType = {
-    concerts: Concerts[] | undefined, 
-    updateConcertId?: () => void,
+    concerts?: Concerts[] | undefined, 
+    updateConcertId?: (newConcertId: string) => void,
+    sessionToken: string | null,
+    concertId: string,
 }
 
 // type StateType = {
@@ -58,7 +60,7 @@ class ConcertDisplay extends React.Component<PropsType, {}>{
                 <TableCell>{concerts.comment}</TableCell>
                 {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
                 {/* <Link to="concerts/ConcertEdit">
-                    <Button type="submit" variant="contained" color="secondary" onClick={(event) => { this.state.updateConcert(concerts.id)(event) }}>Update your experience</Button>
+                    <Button type="submit" variant="contained" color="secondary" onClick={(event) => { this.state.updateConcertId(concerts.id)(event) }}>Update your experience</Button>
                 </Link> */}
 
 
@@ -69,6 +71,8 @@ class ConcertDisplay extends React.Component<PropsType, {}>{
 
     render() {
         return (
+            <div>
+                <h4></h4>
             <Table>
                 {/* <TableBody> */}
                 {this.concertMap()}
@@ -80,6 +84,7 @@ class ConcertDisplay extends React.Component<PropsType, {}>{
                             })
                     } */}
             </Table>
+            </div> 
         )
     }
 }

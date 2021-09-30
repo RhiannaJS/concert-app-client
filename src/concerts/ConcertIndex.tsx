@@ -26,16 +26,16 @@ type Concerts = {
 
 type StateType = {
    concertsList: Concerts[], 
-  
-   
+   username: string,
   }
 
 type PropsType = {
     // concertToUpdate: any;
     sessionToken: string | null,
-    userRole: string;
-    username: string;
+    userRole: string | null;
+    username: string | null;
     concerts?: Concerts []
+    concertId: string,
     updateConcertId: (newConcertId: string)=> void,
 }  
   
@@ -47,6 +47,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         this.state={
             concertsList: [],
             // concerts: []
+            username: "",
             
             
             }
@@ -75,7 +76,8 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             return(
                 <div>
                     <h1>ConcertIndex Component</h1>
-                    <ConcertDisplay concerts={this.state.concertsList} />
+                    
+                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId}concerts={this.state.concertsList} />
                   
                     
                     </div>

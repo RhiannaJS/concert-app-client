@@ -9,8 +9,8 @@ type PropsType = {
     updateSessionToken: (newToken: string) => void;
     updateUserRole: (newRole: string) => void;
     // sessionToken: string | null;
-    userRole: string;
-    username: string;
+    // userRole: string;
+    // username: string | null;
 }
 
 type StateType = {
