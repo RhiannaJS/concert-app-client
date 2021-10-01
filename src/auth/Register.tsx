@@ -31,7 +31,7 @@ class Register extends React.Component <PropsType, StateType> {
             event.preventDefault();
             fetch("http://localhost:4000/user/register", {
                 method: "POST",
-                body: JSON.stringify({user: {username: this.state.username, password: this.state.password}}),
+                body: JSON.stringify({user: {username: this.state.username, email: this.state.email, password: this.state.password}}),
                 headers: new Headers ({
                     "Content-Type" : "application/json"
                 })

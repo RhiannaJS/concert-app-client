@@ -1,5 +1,6 @@
 import React from "react";
 import ConcertDisplay from "./ConcertDisplay"
+import Navbar from "../home/Navbar";
 
 // THIS FILE SHOULD CONTAIN EDIT BUTTON SHOULD HAVE A FUNCTION THAT RUNS IF THE USER IS NEW AND HAS NO CONCERTS TO SHOW YET???.  IF TIME ADD A SEARCH BAR TO SEARCH FOR OTHERS CONCERT POSTS
 
@@ -30,13 +31,14 @@ type StateType = {
   }
 
 type PropsType = {
-    // concertToUpdate: any;
+    
     sessionToken: string | null,
     userRole: string | null;
     username: string | null;
     concerts?: Concerts []
     concertId: string,
     updateConcertId: (newConcertId: string)=> void,
+   
 }  
   
 
@@ -75,11 +77,11 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         render(){
             return(
                 <div>
+                    <Navbar sessionToken={this.props.sessionToken} username={this.props.username} />
                     <h1>ConcertIndex Component</h1>
-                    
                     <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId}concerts={this.state.concertsList} />
-                  
                     
+                    {/* clearToken={this.props.sessionToken} */}
                     </div>
                     )
                 }

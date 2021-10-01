@@ -144,6 +144,9 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     }
 }
 
+export default ConcertEdit;
+
+
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -156,7 +159,6 @@ const style = {
     p: 4,
 };
 
-export default ConcertEdit;
 
 function EditModal() {
     const [open, setOpen] = React.useState(false);
@@ -186,7 +188,7 @@ function EditModal() {
                             autoComplete="off"
                         >
                             THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET
-                        <TextField value={this.setState.bandName} onChange={(event) => updateConcertId  (event)}
+                        <TextField value={this.state.bandName} onChange={(event) => updateConcertId  (event)}
                         label="Outlined secondary" color="secondary" focused  helperText="Band Name"/>
                         <TextField label="Outlined secondary" color="secondary" focused helperText="Opening Act"/>
                         <TextField label="Outlined secondary" color="secondary" focused helperText="Date of the show"/>

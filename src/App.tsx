@@ -19,10 +19,11 @@ type StateType = {
   updateActive: any,
   concertToUpdate: string
 
+
 }
 
 // type PropsType = {
-//   // concertToUpdate: {},
+//   
 //   sessionToken: string | null,
 // }
 
@@ -44,6 +45,7 @@ export default class App extends React.Component <{}, StateType> {
       updateActive: false,
       concertId: "",
       concertToUpdate: ""
+      
     }
     this.protectedViews = this.protectedViews.bind(this)
   }
@@ -96,20 +98,18 @@ updateOff = () =>{
 }
 
 protectedViews = () => {
-  return (
-    
-    this.state.sessionToken === localStorage.getItem("sessionToken") ? 
-    
-    
-    (<ConcertIndex concertId={this.state.concertId} updateConcertId={this.updateConcertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/>) : (
+  return (this.state.sessionToken === localStorage.getItem("sessionToken") ? 
+
+// (<Navbar sessionToken={this.state.sessionToken} username={this.state.username}/>)
+  
+  (<ConcertIndex concertId={this.state.concertId} updateConcertId={this.updateConcertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} />) 
+  :  
       
-      <Auth /*sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} */ updateSessionToken={this.updateSessionToken} updateUserRole={this.updateUserRole}/>)
-      
-      // (localStorage.getItem("userRole") === "user") ? (
-      
-        // : (<Admin />) 
-  )
+  (<Auth /*sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} */ updateSessionToken={this.updateSessionToken} updateUserRole={this.updateUserRole}/>)) 
 }
+  
+
+
 
 componentDidMount(){
   console.log("Mount")
@@ -124,11 +124,8 @@ componentDidMount(){
   render(){
     const session = localStorage.getItem("sessionToken")
   return (
-    <div className="App">
       <Router>
-        {!session ? (
-          <Auth updateSessionToken={this.updateSessionToken} updateUserRole={this.updateUserRole}/>) : (this.protectedViews()
-          )}
+    <div className="App">
           <SwitchController 
             updateSessionToken={this.updateSessionToken}
             updateUsername={this.updateUsername}
@@ -145,11 +142,11 @@ componentDidMount(){
             updateOn={this.state.updateActive}
             updateOff={this.state.updateActive}
           />
-      </Router>
     {this.protectedViews()}
     {/* <Auth sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole} />
     <ConcertIndex sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/> */}
     </div>
+    </Router>
   
   );
 }

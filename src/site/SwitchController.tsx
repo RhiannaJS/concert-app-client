@@ -32,7 +32,8 @@ const SwitchController: FC<ControllerProps> = (props) => {
         <div className="VisualDiv">
             <div className="routes">
                 <Switch>
-                    <Route exact path="/home"></Route>
+                    <Route exact path="/home">
+                    </Route>
                     <Route exact path="/auth">
                         <Auth updateSessionToken={props.updateSessionToken} updateUserRole={props.updateUserRole} />
                     </Route>

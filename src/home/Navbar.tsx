@@ -5,12 +5,23 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
+import ConcertIndex from '../concerts/ConcertIndex';
+import SwitchController from '../site/SwitchController';
+
+
+import Button from '@mui/material/Button';
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom";
+// import Route from "react-router-dom";
+
 
 type PropsType = {
-    clearToken: ()=> void,
+    // clearToken: ()=> void,
     sessionToken: string | null,
     username: string | null | undefined,
+    
+    // clearToken: () => void,
 }
 
 
@@ -18,12 +29,15 @@ type PropsType = {
 class Navbar extends Component <PropsType, {}> {
     constructor(props: PropsType){
     super(props)
-    this.state={}
+    this.state={
+      
+    }
     }
 render(){
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <>
+    <Box sx={{ flexGrow: 1, opacity: .5 }}>
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             size="large"
@@ -32,10 +46,16 @@ render(){
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
+
+          
+
+           
               <Link to="/concerts/ConcertCreate">Create a New Experience!</Link>
-              <Link to="/cocerts/ConcertEdit">Edit an Experience</Link>
+              <Link to="/concerts/ConcertEdit">Edit an Experience</Link>
               <Link to="/concerts/ConcertDisplay">My Experiences</Link>
-            <MenuIcon />
+            
+            <MenuIcon/> 
+            
           </IconButton>
           <Typography
             variant="h6"
@@ -49,7 +69,10 @@ render(){
         </Toolbar>
       </AppBar>
     </Box>
+    <h1>!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    {/* <ConcertIndex concertId={this.state.concertId} updateConcertId={this.updateConcertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} /> */}
+    </>
   );
 }
 }
-export default Navbar;
+export default Navbar
