@@ -129,7 +129,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     //     this.state.concertsList
     // }
 
-
+    
 
     // Will contain Edit Modal and Edit Functionality
     render() {
@@ -147,61 +147,61 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
 export default ConcertEdit;
 
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+// // const style = {
+// //     position: 'absolute' as 'absolute',
+// //     top: '50%',
+// //     left: '50%',
+// //     transform: 'translate(-50%, -50%)',
+// //     width: 400,
+// //     bgcolor: 'background.paper',
+// //     border: '2px solid #000',
+// //     boxShadow: 24,
+// //     p: 4,
+// // };
 
 
-function EditModal() {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+// // function EditModal() {
+// //     const [open, setOpen] = React.useState(false);
+// //     const handleOpen = () => setOpen(true);
+// //     const handleClose = () => setOpen(false);
 
-    return (
-        <div>
-            {/* <Button onClick={handleOpen}>Open modal</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        My New Concert Experience
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <Box
-                            component="form"
-                            sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
-                            }}
-                            noValidate
-                            autoComplete="off"
-                        >
-                            THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET
-                        <TextField value={this.state.bandName} onChange={(event) => updateConcertId  (event)}
-                        label="Outlined secondary" color="secondary" focused  helperText="Band Name"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Opening Act"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Date of the show"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Location"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Description"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Comment"/>
-                        </Box>
-                    </Typography>
-                </Box>
-            </Modal> */}
-        </div>
-    );
-}
+//     return (
+//         <div>
+//             {/* <Button onClick={handleOpen}>Open modal</Button>
+//             <Modal
+//                 open={open}
+//                 onClose={handleClose}
+//                 aria-labelledby="modal-modal-title"
+//                 aria-describedby="modal-modal-description"
+//             >
+//                 <Box sx={style}>
+//                     <Typography id="modal-modal-title" variant="h6" component="h2">
+//                         My New Concert Experience
+//                     </Typography>
+//                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+//                         <Box
+//                             component="form"
+//                             sx={{
+//                                 '& > :not(style)': { m: 1, width: '25ch' },
+//                             }}
+//                             noValidate
+//                             autoComplete="off"
+//                         >
+//                             THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET
+//                         <TextField value={this.state.bandName} onChange={(event) => updateConcertId  (event)}
+//                         label="Outlined secondary" color="secondary" focused  helperText="Band Name"/>
+//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Opening Act"/>
+//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Date of the show"/>
+//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Location"/>
+//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Description"/>
+//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Comment"/>
+//                         </Box>
+//                     </Typography>
+//                 </Box>
+//             </Modal> */}
+//         </div>
+//     );
+// }
 
 
 
