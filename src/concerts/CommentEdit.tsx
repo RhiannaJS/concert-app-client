@@ -75,14 +75,8 @@ class CommentCreate extends React.Component<PropsType, StateType> {
         fetch(`http://localhost:4000/concerts/comment/comment/update/${this.props.id}`, {
             method: "PUT",
             body: JSON.stringify({
-                concertsList: {
-                    id: this.props.concertId,
-                    bandName: this.props.bandName,
-                    openingAct: this.props.openingAct,
-                    dateAttended: this.props.dateAttended,
-                    location: this.props.location,
-                    description: this.props.description,
-                    comment: this.state.comment,
+                comment: {
+                    content: this.state.comment,
                 }
             }),
             headers: new Headers({

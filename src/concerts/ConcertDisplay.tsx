@@ -1,4 +1,5 @@
 import React from "react";
+import ConcertEdit from "./ConcertEdit";
 import {
     Button,
     Table,
@@ -76,13 +77,7 @@ class ConcertDisplay extends React.Component<PropsType, {}>{
             <Table>
                 {/* <TableBody> */}
                 {this.concertMap()}
-                {/* {
-                        this.state.concertsList.map((current, index)=>{
-                            return(
-                                
-                                )
-                            })
-                    } */}
+                
             </Table>
             </div> 
         )

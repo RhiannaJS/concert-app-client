@@ -3,7 +3,8 @@ import Box from "@mui/material/Box"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import TextField from "@mui/material/TextField"
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
 
 
 
@@ -29,7 +30,9 @@ type Concerts = {
 }
 
 type PropsType = {
-    updateConcertId?: ()=> void,
+    // handleOpen: ()=> void,
+    // handleClose: () => void,
+    updateConcertId?: () => void,
     sessionToken: string | null,
     concertsList?: Concerts[],
     id: string,
@@ -38,6 +41,9 @@ type PropsType = {
 }
 
 type StateType = {
+    // handleOpen: ()=> void,
+    // handleClose: () => void,
+    open: boolean,
     concertId: string,
     id: string,
     bandName: string,
@@ -66,6 +72,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     constructor(props: PropsType) {
         super(props)
         this.state = {
+            open: false,
             concertId: "",
             id: "",
             bandName: "",
@@ -100,12 +107,13 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     }
 
     // Edit Fetch with State Variables
-    componentDidMount() {
-        // fetchConcerts = () => {
+    // componentDidMount() {
+    fetchConcerts = (event: any) => {
+        console.log("edit fetchConcerts")
         fetch(`http://localhost:4000/concerts/update/${this.props.id}`, {
             method: "PUT",
             body: JSON.stringify({
-                concertsList: {
+                concert: {
                     id: this.props.id,
                     bandName: this.state.bandName,
                     openingAct: this.state.openingAct,
@@ -125,83 +133,102 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             .catch(e => console.log(e))
     }
 
+    handleOpen = () => {
+        // event.preventDefault()
+        this.setState({ open: true })
+    }
+
+    handleClose = () => {
+        this.setState({ open: false })
+    }
+
     // componentDidUpdate() {
     //     this.state.concertsList
     // }
 
-    
+
+    style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
     // Will contain Edit Modal and Edit Functionality
     render() {
         return (
             <div>
                 <h1>ConcertEdit Component</h1>
-
-
-
+            <Button variant='contained' onClick={this.handleOpen}>Edit a Show</Button>
+                <Modal
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={this.style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Edit a Show
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            
+                       
+                        <br />
+                        <Box
+                                component="form"
+                                sx={{
+                                    '& > :not(style)': { m: 1, width: '25ch' },
+                                }}
+                                noValidate
+                                autoComplete="off"
+                            >
+                        <TextField id="outlined-basic" variant="outlined" label="Band Name" color="secondary" focused helperText="Band Name"/>
+                        <br />
+                        <TextField id="outlined-basic" label="Opening Act" variant="outlined" color="secondary" focused/>
+                        <br />
+                        <TextField id="outlined-basic" label="Date of Show" variant="outlined" color="secondary" focused/>
+                        <br />
+                        <TextField id="outlined-basic" label="Location" variant="outlined" color="secondary" focused/>
+                        <br />
+                        <TextField id="outlined-basic" label="Description" variant="outlined" color="secondary" focused/>
+                        <br />
+                        <TextField id="outlined-basic" label="Comment" variant="outlined" color="secondary" focused/>
+                        <br />
+                        </Box>
+                        </Typography>
+                        {/* <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" >
+                            <Grid item xs={8}>
+                                <Button variant='contained' onClick={this.handleClose}>X</Button>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Button variant='contained' onClick={this.handleClose}>Submit</Button>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Button variant='contained' onClick={this.handleClose}>Update</Button>
+                            </Grid>
+                        </Grid> */}
+                    </Box>
+                </Modal>
             </div>
-        )
+        );
     }
 }
 
 export default ConcertEdit;
 
 
-// // const style = {
-// //     position: 'absolute' as 'absolute',
-// //     top: '50%',
-// //     left: '50%',
-// //     transform: 'translate(-50%, -50%)',
-// //     width: 400,
-// //     bgcolor: 'background.paper',
-// //     border: '2px solid #000',
-// //     boxShadow: 24,
-// //     p: 4,
-// // };
 
 
-// // function EditModal() {
-// //     const [open, setOpen] = React.useState(false);
-// //     const handleOpen = () => setOpen(true);
-// //     const handleClose = () => setOpen(false);
+
+
 
 //     return (
 //         <div>
-//             {/* <Button onClick={handleOpen}>Open modal</Button>
-//             <Modal
-//                 open={open}
-//                 onClose={handleClose}
-//                 aria-labelledby="modal-modal-title"
-//                 aria-describedby="modal-modal-description"
-//             >
-//                 <Box sx={style}>
-//                     <Typography id="modal-modal-title" variant="h6" component="h2">
-//                         My New Concert Experience
-//                     </Typography>
-//                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//                         <Box
-//                             component="form"
-//                             sx={{
-//                                 '& > :not(style)': { m: 1, width: '25ch' },
-//                             }}
-//                             noValidate
-//                             autoComplete="off"
-//                         >
-//                             THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET
-//                         <TextField value={this.state.bandName} onChange={(event) => updateConcertId  (event)}
-//                         label="Outlined secondary" color="secondary" focused  helperText="Band Name"/>
-//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Opening Act"/>
-//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Date of the show"/>
-//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Location"/>
-//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Description"/>
-//                         <TextField label="Outlined secondary" color="secondary" focused helperText="Comment"/>
-//                         </Box>
-//                     </Typography>
-//                 </Box>
-//             </Modal> */}
-//         </div>
-//     );
-// }
 
 
 

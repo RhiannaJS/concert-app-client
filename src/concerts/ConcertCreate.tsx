@@ -1,4 +1,12 @@
 import React from "react";
+import Box from "@mui/material/Box"
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Dialog from "@mui/material/Dialog"
+import FormGroup from "@mui/material/FormGroup"
 
 
 type Concerts = {
@@ -11,14 +19,16 @@ type Concerts = {
     comment: string,
 }
 
-type PropsType ={
-    updateConcertId?: ()=> void,
+type PropsType = {
+    updateConcertId?: () => void,
     sessionToken: string | null,
     concertsList?: Concerts[],
     // id: string,
 }
 
 type StateType = {
+    open: boolean,
+    // modalOpen: boolean,
     concertId: string,
     id: string,
     bandName: string,
@@ -42,10 +52,12 @@ type StateType = {
 // Will contain create Fetch, and form to create new concert experience, with state variables
 
 class ConcertCreate extends React.Component<PropsType, StateType>{
-    constructor(props: PropsType){
-    super(props)
-    this.state={
-        concertId: "",
+    constructor(props: PropsType) {
+        super(props)
+        this.state = {
+            open: false,
+            // modalOpen: false,
+            concertId: "",
             id: "",
             bandName: "",
             openingAct: "",
@@ -71,38 +83,74 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                 description: "",
                 comment: "",
             }],
-    }
+        }
 
     }
 
     // componentDidMount(){
-        handleSubmit = (event: any) => {
+    handleSubmit = (event: any) => {
+        console.log("create handleSubmit")
         fetch(`http://localhost:4000/concerts/create`, {
             method: "POST",
             body: JSON.stringify({
-                concertsList: {
-                    id: this.state.id,
+                concert: {
+                    // id: this.state.id,
                     bandName: this.state.bandName,
                     openingAct: this.state.openingAct,
                     dateAttended: this.state.dateAttended,
                     location: this.state.location,
                     description: this.state.description,
-                    comment: this.state.comment
+                    comment: this.state.comment,
+                    userId: this.state.id,
                 }
             }),
-            headers: new Headers ({
+            headers: new Headers({
                 "Content-Type": "application/json",
                 "Authorization": `${this.props.sessionToken}`
             })
         })
-        .then(res=>res.json())
-        .then(json=>this.setState({concertsList: json}))
-        .catch(e=> console.log(e))
+            .then((res) => res.json())
+            .then((json) => {this.setState({ concertsList: json })})
+            .catch(e => console.log(e))
     }
-// SHOULD I PUT THIS FUNCTION ON MY APP.TSX FILE TO REMAIN CONSISTENT?
-    concertCreate=(event: any)=>{
-        this.setState({concerts: event.target.value})
+
+
+    concertCreate = (event: any) => {
+        this.setState({ concerts: event.target.value })
         console.log(this.state.concerts)
+    }
+
+    handleOpen = () => {
+        // event.preventDefault()
+        this.setState({ open: true })
+    }
+
+    handleClose = () => {
+        this.setState({ open: false })
+    }
+
+    createBandName(event: any) {
+        this.setState({ bandName: event.target.value })
+    }
+
+    createOpeningAct(event: any) {
+        this.setState({ openingAct: event.target.value })
+    }
+
+    createDateAttended(event: any) {
+        this.setState({ dateAttended: event.target.value })
+    }
+
+    createLocation(event: any) {
+        this.setState({ location: event.target.vaule })
+    }
+
+    createDescription(event: any) {
+        this.setState({ description: event.target.value })
+    }
+
+    createComment(event: any) {
+        this.setState({ comment: event.target.value })
     }
 
     // componentDidUpdate() {
@@ -111,65 +159,66 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
 
 
     // I THINK ALL OF THESE LINES BELOW, MAY NEED TO BE AFTER THE EXPORT????
-    // const style = {
-    //     position: 'absolute' as 'absolute',
-    //     top: '50%',
-    //     left: '50%',
-    //     transform: 'translate(-50%, -50%)',
-    //     width: 400,
-    //     bgcolor: 'background.paper',
-    //     border: '2px solid #000',
-    //     boxShadow: 24,
-    //     p: 4,
-    // };
+    style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
-    // function EditModal() {
-    //     const [open, setOpen] = React.useState(false);
-    //     const handleOpen = () => setOpen(true);
-    //     const handleClose = () => setOpen(false);
-
-
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <h1>ConcertCreate Component</h1>
-                {/* <Button onClick={handleOpen}>Open modal</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        My New Concert Experience
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <Box
-                            component="form"
-                            sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
-                            }}
-                            noValidate
-                            autoComplete="off"
-                        >
-                            THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET
-                        <TextField value={this.state.bandName} onChange={(event) => updateConcertId  (event)}
-                        label="Outlined secondary" color="secondary" focused  helperText="Band Name"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Opening Act"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Date of the show"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Location"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Description"/>
-                        <TextField label="Outlined secondary" color="secondary" focused helperText="Comment"/>
-                        </Box>
-                    </Typography>
-                </Box>
-            </Modal> */}
+                {/* <Button variant="contained"{...this.state.open}>Create Button</Button> */}
+                <Button variant="contained" color="secondary" onClick={this.handleOpen}>Add a Show</Button>
+                <Modal
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <FormGroup onSubmit={this.handleSubmit}>
+                    <Box sx={this.style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            My New Concert Experience
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Put in all of the details you don't want to forget!
+                            <Box
+                                component="form"
+                                sx={{
+                                    '& > :not(style)': { m: 1, width: '25ch' },
+                                }}
+                                noValidate
+                                autoComplete="off"
+                            >
+                                {/* THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET */}
+                                <TextField value={this.state.bandName} onChange={(event) => this.createBandName(event)} label="Band Name" color="secondary" focused helperText="Band Name" />
+                                <TextField value={this.state.openingAct} onChange={(event) => this.createOpeningAct(event)} label="Opening Act" color="secondary" focused helperText="Opening Act" />
+                                <TextField value={this.state.dateAttended} onChange={(event) => this.createDateAttended(event)} label="Date Attended" color="secondary" focused helperText="Date of the show" />
+                                <TextField value={this.state.location} onChange={(event) => this.createLocation(event)} label="Location" color="secondary" focused helperText="Location" />
+                                <TextField value={this.state.description} onChange={(event) => this.createDescription(event)} label="Description" color="secondary" focused helperText="Description" />
+                                <TextField value={this.state.comment} onChange={(event) => this.createComment(event)} label="Comment" color="secondary" focused helperText="Comment" />
+
+                            </Box>
+                        </Typography>
+                       
+                        <Button type="submit" variant="contained" color="secondary"  onClick={(event) => this.handleSubmit(event)}>Add</Button>
+                    </Box>
+                    </FormGroup>
+                </Modal>
 
 
             </div>
         );
     }
 }
+
 
 export default ConcertCreate;

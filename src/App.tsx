@@ -20,6 +20,8 @@ type Concerts = {
 }
 
 type StateType = {
+  handleClose: any,
+  handleOpen: any,
   username: string | null,
   sessionToken: string | null,
   userRole: string,
@@ -57,6 +59,8 @@ export default class App extends React.Component<{}, StateType> {
   constructor(props: StateType) {
     super(props);
     this.state = {
+      handleClose: false,
+      handleOpen: true,
       username: "",
       sessionToken: "",
       userRole: "user",
@@ -131,6 +135,15 @@ export default class App extends React.Component<{}, StateType> {
   updateOff = () => {
     this.state.updateActive(false)
   }
+
+ handleOpen = () =>{
+   this.state.handleOpen(true)
+ } 
+
+ handleClose = () =>{
+   this.state.handleClose(false)
+ }
+
 
   protectedViews = () => {
     return (this.state.sessionToken === localStorage.getItem("sessionToken") ?
