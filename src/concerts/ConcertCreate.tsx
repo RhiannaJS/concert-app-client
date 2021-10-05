@@ -7,7 +7,9 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Dialog from "@mui/material/Dialog"
 import FormGroup from "@mui/material/FormGroup"
-
+import Input from "@mui/material/Input"
+import FormControl from "@mui/material/FormControl"
+import {Link} from "react-router-dom"
 
 type Concerts = {
     id: string,
@@ -20,6 +22,7 @@ type Concerts = {
 }
 
 type PropsType = {
+   
     updateConcertId?: () => void,
     sessionToken: string | null,
     concertsList?: Concerts[],
@@ -27,6 +30,7 @@ type PropsType = {
 }
 
 type StateType = {
+    concert: [],
     open: boolean,
     // modalOpen: boolean,
     concertId: string,
@@ -55,6 +59,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
     constructor(props: PropsType) {
         super(props)
         this.state = {
+            concert: [],
             open: false,
             // modalOpen: false,
             concertId: "",
@@ -88,8 +93,10 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
     }
 
     // componentDidMount(){
-    handleSubmit = (event: any) => {
+    handleSubmit(event: any){
+        // This is not console.logging any more
         console.log("create handleSubmit")
+        event.preventDefault()
         fetch(`http://localhost:4000/concerts/create`, {
             method: "POST",
             body: JSON.stringify({
@@ -109,10 +116,25 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                 "Authorization": `${this.props.sessionToken}`
             })
         })
+        //     .then((res) => res.json())
+        //     .then((concertData) => {
+        //         console.log(concertData),
+        //         this.state.bandName,
+        //         this.state.openingAct,
+        //         this.state.dateAttended,
+        //         this.state.location,
+        //         this.state.description,
+        //         this.state.comment
+        //     })
+        // }
             .then((res) => res.json())
-            .then((json) => {this.setState({ concertsList: json })})
-            .catch(e => console.log(e))
+            .then((json) => {this.setState({ concert: json })},
+            this.handleClose)
+            .catch(err => console.log(err))
+
+        this.setState({open: false})
     }
+    // NEED TO COME BACK TO THIS TO GET THE MODAL TO CLOSE AND THE CONCERTINDEX TO 
 
 
     concertCreate = (event: any) => {
@@ -171,10 +193,12 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
         p: 4,
     };
 
+   
+
     render() {
         return (
             <div>
-                <h1>ConcertCreate Component</h1>
+                {/* <h1>ConcertCreate Component</h1> */}
                 {/* <Button variant="contained"{...this.state.open}>Create Button</Button> */}
                 <Button variant="contained" color="secondary" onClick={this.handleOpen}>Add a Show</Button>
                 <Modal
@@ -199,17 +223,21 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                                 autoComplete="off"
                             >
                                 {/* THIS IS INCOMPLETE - COPIED FROM ANOTHER FILE TO WORK WITH, BUT HAVEN'T COME BACK TO IT YET */}
-                                <TextField value={this.state.bandName} onChange={(event) => this.createBandName(event)} label="Band Name" color="secondary" focused helperText="Band Name" />
-                                <TextField value={this.state.openingAct} onChange={(event) => this.createOpeningAct(event)} label="Opening Act" color="secondary" focused helperText="Opening Act" />
-                                <TextField value={this.state.dateAttended} onChange={(event) => this.createDateAttended(event)} label="Date Attended" color="secondary" focused helperText="Date of the show" />
-                                <TextField value={this.state.location} onChange={(event) => this.createLocation(event)} label="Location" color="secondary" focused helperText="Location" />
-                                <TextField value={this.state.description} onChange={(event) => this.createDescription(event)} label="Description" color="secondary" focused helperText="Description" />
-                                <TextField value={this.state.comment} onChange={(event) => this.createComment(event)} label="Comment" color="secondary" focused helperText="Comment" />
+                                {/* <Input defaultValue="Band Name" color="secondary"  onChange={(event) => this.createBandName(event)} /> */}
+                                <TextField value={this.state.bandName} onChange={(e) => {this.setState({bandName: e.target.value})}} label="Band Name" color="secondary" focused helperText="Band Name" />
+                                <TextField value={this.state.openingAct} onChange={(e) => {this.setState({openingAct: e.target.value})}} label="Opening Act" color="secondary" focused helperText="Opening Act" />
+                                <TextField value={this.state.dateAttended} onChange={(e) => {this.setState({dateAttended: e.target.value})}} label="Date of Show" color="secondary" focused helperText="Date of the show" />
+                                <TextField value={this.state.location} onChange={(e) => {this.setState({location: e.target.value})}} label="Location" color="secondary" focused helperText="Location" />
+                                <TextField value={this.state.description} onChange={(e) => {this.setState({description: e.target.value})}} label="Description" color="secondary" focused helperText="Description" />
+                                <TextField value={this.state.comment} onChange={(e) => {this.setState({comment: e.target.value})}} label="Comment" color="secondary" focused helperText="Comment" />
 
                             </Box>
                         </Typography>
-                       
-                        <Button type="submit" variant="contained" color="secondary"  onClick={(event) => this.handleSubmit(event)}>Add</Button>
+                       {/*                                             Tried adding this, gets an empty object  - thats progess I guess */}
+                       <Link to="/concerts/ConcertDisplay"><Button  variant="contained" color="secondary" onClick={(e) =>{this.handleSubmit(e)}}>Add
+                       </Button>
+                       </Link>
+                    
                     </Box>
                     </FormGroup>
                 </Modal>

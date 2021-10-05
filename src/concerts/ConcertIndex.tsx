@@ -28,6 +28,7 @@ type Concerts = {
 type StateType = {
    concertsList: Concerts[], 
    username: string,
+   
   }
 
 type PropsType = {
@@ -37,7 +38,7 @@ type PropsType = {
     username: string | null;
     concerts?: Concerts []
     concertId: string,
-    updateConcertId: (newConcertId: string)=> void,
+    
    
 }  
   
@@ -52,11 +53,12 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             username: "",
             
             
+            
             }
         }
         
-        componentDidMount(){
-        // fetchConcerts = () => {
+        componentDidMount(){this.fetchConcerts()}
+        fetchConcerts = () => {
             fetch("http://localhost:4000/concerts/mine", {
             method: "GET",
             headers : new Headers ({
@@ -71,6 +73,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         }
     
         componentDidUpdate(){
+            // this.fetchConcerts()
             console.log(this.state.concertsList)
         }
 
@@ -79,7 +82,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
                 <div>
                     <Navbar sessionToken={this.props.sessionToken} username={this.props.username} />
                     <h1>ConcertIndex Component</h1>
-                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId}concerts={this.state.concertsList} />
+                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} />
                     
                     {/* clearToken={this.props.sessionToken} */}
                     </div>

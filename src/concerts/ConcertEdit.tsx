@@ -61,7 +61,7 @@ type StateType = {
         description: "",
         comment: "",
     }],
-    // sessionToken: string,
+    sessionToken: string,
     // updateConcert: ()=> void,
     concertsList: Concerts[]
 }
@@ -69,7 +69,7 @@ type StateType = {
 // let concertsList: Array<Concerts>
 
 class ConcertEdit extends React.Component<PropsType, StateType>{
-    constructor(props: PropsType) {
+    constructor(props: StateType) {
         super(props)
         this.state = {
             open: false,
@@ -99,7 +99,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                 description: "",
                 comment: "",
             }],
-            // sessionToken: "",
+            sessionToken: "",
             // concertToUpdate: "",
             // updateConcert: ()=> void,
 
@@ -108,9 +108,9 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
 
     // Edit Fetch with State Variables
     // componentDidMount() {
-    fetchConcerts = (event: any) => {
+    fetchEditConcerts = (concert: any) => {
         console.log("edit fetchConcerts")
-        fetch(`http://localhost:4000/concerts/update/${this.props.id}`, {
+        fetch(`http://localhost:4000/concerts/update/${concert.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 concert: {
@@ -129,7 +129,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             })
         })
             .then(res => res.json())
-            .then(json => this.setState({ concertsList: json }))
+            .then(json => this.setState({ concerts: json }))
             .catch(e => console.log(e))
     }
 
@@ -187,20 +187,21 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                 noValidate
                                 autoComplete="off"
                             >
-                        <TextField id="outlined-basic" variant="outlined" label="Band Name" color="secondary" focused helperText="Band Name"/>
+                        <TextField value={this.state.bandName} onChange={(e) => {this.setState({bandName: e.target.value})}} id="outlined-basic" variant="outlined" label="Band Name" color="secondary" focused helperText="Band Name"/>
                         <br />
-                        <TextField id="outlined-basic" label="Opening Act" variant="outlined" color="secondary" focused/>
+                        <TextField value={this.state.openingAct} onChange={(e) => {this.setState({openingAct: e.target.value})}}id="outlined-basic" label="Opening Act" variant="outlined" color="secondary" focused/>
                         <br />
-                        <TextField id="outlined-basic" label="Date of Show" variant="outlined" color="secondary" focused/>
+                        <TextField value={this.state.dateAttended} onChange={(e) => {this.setState({dateAttended: e.target.value})}}id="outlined-basic" label="Date of Show" variant="outlined" color="secondary" focused/>
                         <br />
-                        <TextField id="outlined-basic" label="Location" variant="outlined" color="secondary" focused/>
+                        <TextField value={this.state.location} onChange={(e) => {this.setState({location: e.target.value})}}id="outlined-basic" label="Location" variant="outlined" color="secondary" focused/>
                         <br />
-                        <TextField id="outlined-basic" label="Description" variant="outlined" color="secondary" focused/>
+                        <TextField value={this.state.description} onChange={(e) => {this.setState({description: e.target.value})}} id="outlined-basic" label="Description" variant="outlined" color="secondary" focused/>
                         <br />
-                        <TextField id="outlined-basic" label="Comment" variant="outlined" color="secondary" focused/>
+                        <TextField value={this.state.comment} onChange={(e) => {this.setState({comment: e.target.value})}}id="outlined-basic" label="Comment" variant="outlined" color="secondary" focused/>
                         <br />
                         </Box>
                         </Typography>
+
                         {/* <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" >
                             <Grid item xs={8}>
                                 <Button variant='contained' onClick={this.handleClose}>X</Button>

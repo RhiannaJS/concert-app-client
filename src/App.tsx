@@ -39,7 +39,8 @@ type StateType = {
   comment: string,
   commentId: string,
   concertsList: Concerts[],
-  concerts: []
+  concerts: [],
+  // fetchConcerts: ()=> void,
 
 
 }
@@ -53,12 +54,14 @@ type StateType = {
 //   updateSessionToken: (newToken: string) => void;
 //   updateUserRole: (newUserRole: string) => void;
 //   clearToken: (clearToken: null) => void;
+//   fetchConcerts: ()=> void,
 // }
 
 export default class App extends React.Component<{}, StateType> {
-  constructor(props: StateType) {
+  constructor(props: any) {
     super(props);
     this.state = {
+
       handleClose: false,
       handleOpen: true,
       username: "",
@@ -150,7 +153,7 @@ export default class App extends React.Component<{}, StateType> {
 
       // (<Navbar sessionToken={this.state.sessionToken} username={this.state.username}/>)
 
-      (<ConcertIndex concertId={this.state.concertId} updateConcertId={this.updateConcertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} />)
+      (<ConcertIndex concertId={this.state.concertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} />)
       :
 
       (<Auth /*sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} */ updateSessionToken={this.updateSessionToken} updateUserRole={this.updateUserRole} />))
@@ -176,6 +179,7 @@ export default class App extends React.Component<{}, StateType> {
         <div className="App">
         {this.protectedViews()}
           <SwitchController
+            // fetchConcerts={this.props.fetchConcerts}
             updateSessionToken={this.updateSessionToken}
             updateUsername={this.updateUsername}
             updateUserRole={this.updateUserRole}

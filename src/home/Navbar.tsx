@@ -6,7 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConcertIndex from '../concerts/ConcertIndex';
-import SwitchController from '../site/SwitchController';
+import ConcertCreate from "../concerts/ConcertCreate"
+// import SwitchController from '../site/SwitchController';
 
 
 import Button from '@mui/material/Button';
@@ -36,7 +37,7 @@ class Navbar extends Component <PropsType, {}> {
 render(){
   return (
     <>
-    <Box sx={{ flexGrow: 1, opacity: .5 }}>
+    <Box sx={{ flexGrow: 1}}>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton
@@ -50,9 +51,13 @@ render(){
           
 
            
-              <Link to="/concerts/ConcertCreate">Create a New Experience!</Link>
-              <Link to="/concerts/ConcertEdit">Edit an Experience</Link>
-              <Link to="/concerts/ConcertDisplay">My Experiences</Link>
+              {/* <Link to="/concerts/ConcertCreate"><Button variant="contained" color="secondary">Create a New Experience!</Button></Link> */}
+              <hr/>
+              <Link to="/concerts/ConcertEdit"><Button variant="contained" color="secondary">Edit an Experience
+              </Button></Link>
+              <hr/>
+              <Link to="/concerts/ConcertDisplay"><Button variant="contained" color="secondary">My Experiences</Button></Link>
+              <ConcertCreate sessionToken={this.props.sessionToken} />
             
             <MenuIcon/> 
             
@@ -69,7 +74,7 @@ render(){
         </Toolbar>
       </AppBar>
     </Box>
-    <h1>!!!!!!!!!!!!!!!!!!!!!!!</h1>
+   
     {/* <ConcertIndex concertId={this.state.concertId} updateConcertId={this.updateConcertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} /> */}
     </>
   );

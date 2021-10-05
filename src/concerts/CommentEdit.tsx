@@ -50,7 +50,7 @@ type StateType = {
 }
 
 
-class CommentCreate extends React.Component<PropsType, StateType> {
+class CommentEdit extends React.Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props)
         this.state = {
@@ -110,7 +110,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
     }
 }
 
-export default CommentCreate;
+export default CommentEdit;
 
 // const style = {
 //     position: 'absolute' as 'absolute',
