@@ -1,5 +1,6 @@
 import React from "react";
 import ConcertEdit from "./ConcertEdit";
+import CommentCreate from "./CommentCreate";
 import {
     Button,
     Table,
@@ -20,6 +21,8 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
+    comments: [],
+
 }
 
 type PropsType = {
@@ -27,6 +30,10 @@ type PropsType = {
     updateConcertId?: (newConcertId: string) => void,
     sessionToken: string | null,
     concertId: string,
+    bandName: string,
+    // comments: [],
+    
+    // id: string,
     // fetchConcerts: ()=> void,
 }
 
@@ -78,9 +85,13 @@ class ConcertDisplay extends React.Component<PropsType, {}>{
                 <TableCell>{concerts.location}</TableCell>
                 <TableCell>{concerts.description}</TableCell>
                 <TableCell>{concerts.comment}</TableCell>
+                {/* <TableCell>{concerts.comments}</TableCell> */}
+
                 {/* <TableCell><Button variant="contained" color="secondary" onClick={(console.log(concerts.id)}>{concerts.id}</Button></TableCell> */}
                 <TableCell><Button variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(concerts)}>Delete</Button></TableCell>
-                <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell>
+                {/* <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell> */}
+                <ConcertEdit sessionToken={this.props.sessionToken}  id={concerts.id} concertId={this.props.concertId} bandName={this.props.bandName}/>
+                {/* <CommentCreate sessionToken={this.props.sessionToken} concertId={this.props.concertId} bandName={this.props.bandName} id={this.props.concertId} openingAct={this.props.}/> */}
                 {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
                 {/* <Link to="concerts/ConcertEdit">
                     <Button type="submit" variant="contained" color="secondary" onClick={(event) => { this.state.updateConcertId(concerts.id)(event) }}>Update your experience</Button>

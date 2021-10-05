@@ -53,11 +53,13 @@ render(){
            
               {/* <Link to="/concerts/ConcertCreate"><Button variant="contained" color="secondary">Create a New Experience!</Button></Link> */}
               <hr/>
+              <Link to="/concerts/CommentCreate"><Button variant="contained" color="secondary">Add Comment</Button></Link>
               <Link to="/concerts/ConcertEdit"><Button variant="contained" color="secondary">Edit an Experience
               </Button></Link>
               <hr/>
               <Link to="/concerts/ConcertDisplay"><Button variant="contained" color="secondary">My Experiences</Button></Link>
               <ConcertCreate sessionToken={this.props.sessionToken} />
+              <Button></Button>
             
             <MenuIcon/> 
             

@@ -9,6 +9,16 @@ import Admin from "./auth/Admin"
 import Navbar from "./home/Navbar"
 import SwitchController from './site/SwitchController';
 
+type concert ={
+  id: string,
+  bandName: string,
+  openingAct: string,
+  dateAttended: string,
+  location: string,
+  description: string,
+  comment: string,
+}
+
 type Concerts = {
   id: string,
   bandName: string,
@@ -41,6 +51,7 @@ type StateType = {
   concertsList: Concerts[],
   concerts: [],
   // fetchConcerts: ()=> void,
+  concert: []
 
 
 }
@@ -61,7 +72,7 @@ export default class App extends React.Component<{}, StateType> {
   constructor(props: any) {
     super(props);
     this.state = {
-
+      concert: [],
       handleClose: false,
       handleOpen: true,
       username: "",
@@ -139,13 +150,13 @@ export default class App extends React.Component<{}, StateType> {
     this.state.updateActive(false)
   }
 
- handleOpen = () =>{
-   this.state.handleOpen(true)
- } 
+  handleOpen = () => {
+    this.state.handleOpen(true)
+  }
 
- handleClose = () =>{
-   this.state.handleClose(false)
- }
+  handleClose = () => {
+    this.state.handleClose(false)
+  }
 
 
   protectedViews = () => {
@@ -177,7 +188,7 @@ export default class App extends React.Component<{}, StateType> {
     return (
       <Router>
         <div className="App">
-        {this.protectedViews()}
+          {this.protectedViews()}
           <SwitchController
             // fetchConcerts={this.props.fetchConcerts}
             updateSessionToken={this.updateSessionToken}
@@ -203,9 +214,10 @@ export default class App extends React.Component<{}, StateType> {
             comment={this.state.comment}
             concerts={this.state.concerts}
             concertsList={this.state.concertsList}
-          
+            // concert={this.state.concert.id}
+
           />
-          
+
           {/* <Auth sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} updateSessionToken={this.updateSessionToken} updateUserRole={this.updateRole} />
     <ConcertIndex sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username}/> */}
         </div>

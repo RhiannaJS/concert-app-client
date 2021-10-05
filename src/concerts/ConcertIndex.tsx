@@ -23,11 +23,14 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
+    comments: []
 }
 
 type StateType = {
    concertsList: Concerts[], 
    username: string,
+   bandName: string,
+   comments: []
    
   }
 
@@ -51,6 +54,8 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             concertsList: [],
             // concerts: []
             username: "",
+            bandName: "",
+            comments: [],
             
             
             
@@ -71,7 +76,8 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             .catch(e=> console.log(e))
             
         }
-    
+        
+
         componentDidUpdate(){
             // this.fetchConcerts()
             console.log(this.state.concertsList)
@@ -82,7 +88,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
                 <div>
                     <Navbar sessionToken={this.props.sessionToken} username={this.props.username} />
                     <h1>ConcertIndex Component</h1>
-                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} />
+                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} bandName={this.state.bandName}/>
                     
                     {/* clearToken={this.props.sessionToken} */}
                     </div>

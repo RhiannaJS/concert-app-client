@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-
+import Link from "@mui/material/Link"
+import FormGroup from "@mui/material/FormGroup"
 
 
 interface ConcertDetails {
@@ -36,6 +37,9 @@ type PropsType = {
     sessionToken: string | null,
     concertsList?: Concerts[],
     id: string,
+    concertId: string,
+    bandName: string,
+    // concert: [],
     // Concerts: []
     // concertsList.id: string,
 }
@@ -43,6 +47,7 @@ type PropsType = {
 type StateType = {
     // handleOpen: ()=> void,
     // handleClose: () => void,
+    concert: [],
     open: boolean,
     concertId: string,
     id: string,
@@ -72,6 +77,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     constructor(props: StateType) {
         super(props)
         this.state = {
+            concert: [],
             open: false,
             concertId: "",
             id: "",
@@ -107,20 +113,20 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     }
 
     // Edit Fetch with State Variables
-    // componentDidMount() {
-    fetchEditConcerts = (concert: any) => {
-        console.log("edit fetchConcerts")
-        fetch(`http://localhost:4000/concerts/update/${concert.id}`, {
+    // componentDidMount() 
+    fetchEditConcerts = (concertId: any) => {
+        console.log("edit fetchEditConcerts")
+        fetch(`http://localhost:4000/concerts/update/${this.props.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 concert: {
-                    id: this.props.id,
                     bandName: this.state.bandName,
                     openingAct: this.state.openingAct,
                     dateAttended: this.state.dateAttended,
                     location: this.state.location,
                     description: this.state.description,
-                    comment: this.state.comment
+                    comment: this.state.comment,
+                    id: this.props.concertId,
                 }
             }),
             headers: new Headers({
@@ -129,8 +135,10 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             })
         })
             .then(res => res.json())
-            .then(json => this.setState({ concerts: json }))
+            .then((json) => {this.setState({ concertsList: json })},
+            this.handleClose)
             .catch(e => console.log(e))
+            this.setState({open: false})
     }
 
     handleOpen = () => {
@@ -163,14 +171,15 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     render() {
         return (
             <div>
-                <h1>ConcertEdit Component</h1>
-            <Button variant='contained' onClick={this.handleOpen}>Edit a Show</Button>
+                {/* <h1>ConcertEdit Component</h1> */}
+            <Button variant='contained' onClick={this.handleOpen}>Edit</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
+                    <FormGroup onSubmit={this.fetchEditConcerts}>
                     <Box sx={this.style}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Edit a Show
@@ -212,8 +221,12 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                             <Grid item xs={8}>
                                 <Button variant='contained' onClick={this.handleClose}>Update</Button>
                             </Grid>
+                            <Link to="/concerts/ConcertEdit">
                         </Grid> */}
+                        <Button  variant="contained" color="secondary" onClick={(e) =>{this.fetchEditConcerts(e)}}>Update
+                       </Button>
                     </Box>
+                    </FormGroup>
                 </Modal>
             </div>
         );

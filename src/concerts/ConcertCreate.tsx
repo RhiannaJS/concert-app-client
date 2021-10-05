@@ -233,7 +233,6 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
 
                             </Box>
                         </Typography>
-                       {/*                                             Tried adding this, gets an empty object  - thats progess I guess */}
                        <Link to="/concerts/ConcertDisplay"><Button  variant="contained" color="secondary" onClick={(e) =>{this.handleSubmit(e)}}>Add
                        </Button>
                        </Link>

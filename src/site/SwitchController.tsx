@@ -48,6 +48,7 @@ type ControllerProps = {
     comment: string,
     concerts: [],
     concertsList: Concerts[]
+    // concert: []
 
 };
 
@@ -69,7 +70,7 @@ const SwitchController: FC<ControllerProps> = (props) => {
                         <ConcertCreate sessionToken={props.sessionToken} />
                     </Route> */}
                     <Route exact path="/concerts/ConcertEdit">
-                        <ConcertEdit sessionToken={props.sessionToken} id={props.concertId}/>
+                        <ConcertEdit sessionToken={props.sessionToken} id={props.concertId} concertId={props.concertId} bandName={props.bandName}/>
                     </Route>
                     <Route exact path="/concerts/CommentCreate">
                         <CommentCreate sessionToken={props.sessionToken} concertId={props.concertId} bandName={props.bandName} id={props.id} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} comment={props.comment} concertsList={props.concertsList}/>
@@ -78,7 +79,7 @@ const SwitchController: FC<ControllerProps> = (props) => {
                         <CommentEdit sessionToken={props.sessionToken} concertId={props.concertId} comment={props.comment}  bandName={props.bandName} id={props.id} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} concertsList={props.concertsList} />
                     </Route> */}
                     <Route exact path="/concerts/ConcertDisplay">
-                        <ConcertDisplay sessionToken={props.sessionToken} concertId={props.concertId} updateConcertId={props.updateConcertId} />
+                        <ConcertDisplay sessionToken={props.sessionToken} concertId={props.concertId} updateConcertId={props.updateConcertId} bandName={props.bandName}/>
                     </Route>
                 </Switch>
             </div>
