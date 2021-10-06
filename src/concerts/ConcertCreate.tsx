@@ -93,7 +93,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
     }
 
     // componentDidMount(){
-    handleSubmit(event: any){
+    createHandleSubmit(event: any){
         // This is not console.logging any more
         console.log("create handleSubmit")
         event.preventDefault()
@@ -207,7 +207,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <FormGroup onSubmit={this.handleSubmit}>
+                    <FormGroup onSubmit={this.createHandleSubmit}>
                     <Box sx={this.style}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             My New Concert Experience
@@ -233,7 +233,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
 
                             </Box>
                         </Typography>
-                       <Link to="/concerts/ConcertDisplay"><Button  variant="contained" color="secondary" onClick={(e) =>{this.handleSubmit(e)}}>Add
+                       <Link to="/concerts/ConcertDisplay"><Button  variant="contained" color="secondary" onClick={(e) =>{this.createHandleSubmit(e)}}>Add
                        </Button>
                        </Link>
                     

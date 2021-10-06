@@ -5,13 +5,13 @@ import Auth from "../auth/Auth";
 import ConcertCreate from "../concerts/ConcertCreate";
 import ConcertDisplay from "../concerts/ConcertDisplay";
 import ConcertIndex from "../concerts/ConcertIndex";
-import ConcertTable from "../concerts/ConcertTable";
 import ConcertEdit from "../concerts/ConcertEdit";
 import CommentCreate from "../concerts/CommentCreate";
 import CommentEdit from "../concerts/CommentEdit";
 import Navbar from "../home/Navbar";
+import ConcertComments from "../concerts/ConcertComments"
 
-type Concerts = {
+export type Concerts = {
     id: string,
     bandName: string,
     openingAct: string,
@@ -19,11 +19,14 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
+    comments?: [
+        // context: string,
+    ],
 }
 
 
 type ControllerProps = {
-    
+
     updateSessionToken: (newToken: string) => void,
     updateUserRole: (newUserRole: string) => void,
     updateUsername: (newUsername: string) => void,
@@ -46,8 +49,10 @@ type ControllerProps = {
     location: string,
     description: string,
     comment: string,
+    postId: string,
     concerts: [],
-    concertsList: Concerts[]
+    concertsList: Concerts[],
+    comments: [],
     // concert: []
 
 };
@@ -58,28 +63,28 @@ const SwitchController: FC<ControllerProps> = (props) => {
     return (
         <div className="VisualDiv">
             <div className="routes">
-            <Route path="/">
-                <Navbar sessionToken={props.sessionToken} username={props.username} />
-            </Route>
+                <Route path="/">
+                    <Navbar sessionToken={props.sessionToken} username={props.username} />
+                </Route>
                 <Switch>
-                   
+
                     <Route exact path="/auth">
                         <Auth updateSessionToken={props.updateSessionToken} updateUserRole={props.updateUserRole} />
                     </Route>
-                    {/* <Route exact path="/concerts/ConcertCreate">
-                        <ConcertCreate sessionToken={props.sessionToken} />
+                    {/* <Route exact path="/concerts/ConcertComments">
+                        <ConcertComments concert={concerts} />
                     </Route> */}
-                    <Route exact path="/concerts/ConcertEdit">
-                        <ConcertEdit sessionToken={props.sessionToken} id={props.concertId} concertId={props.concertId} bandName={props.bandName}/>
-                    </Route>
-                    <Route exact path="/concerts/CommentCreate">
-                        <CommentCreate sessionToken={props.sessionToken} concertId={props.concertId} bandName={props.bandName} id={props.id} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} comment={props.comment} concertsList={props.concertsList}/>
-                    </Route>
+                    {/* <Route exact path="/concerts/ConcertEdit"> */}
+                        {/* <ConcertEdit sessionToken={props.sessionToken} id={props.concertId} concertId={props.concertId} bandName={props.bandName} concert={concerts}/> */}
+                    {/* </Route> */}
+                    {/* <Route exact path="/concerts/CommentCreate">
+                        <CommentCreate sessionToken={props.sessionToken} concertId={props.concertId} bandName={props.bandName} id={props.id} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} comment={props.comment} comments={props.comments} concertsList={props.concertsList} postId={props.concertId} />
+                    </Route> */}
                     {/* <Route exact path="/concerts/CommentEdit">
                         <CommentEdit sessionToken={props.sessionToken} concertId={props.concertId} comment={props.comment}  bandName={props.bandName} id={props.id} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} concertsList={props.concertsList} />
                     </Route> */}
                     <Route exact path="/concerts/ConcertDisplay">
-                        <ConcertDisplay sessionToken={props.sessionToken} concertId={props.concertId} updateConcertId={props.updateConcertId} bandName={props.bandName}/>
+                        <ConcertDisplay sessionToken={props.sessionToken} concertId={props.concertId} updateConcertId={props.updateConcertId} bandName={props.bandName} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} comment={props.comment} comments={props.comments} postId={props.postId} />
                     </Route>
                 </Switch>
             </div>

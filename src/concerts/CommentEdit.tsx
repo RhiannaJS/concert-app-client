@@ -104,7 +104,7 @@ class CommentEdit extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div>
-                <h1>CommentCreate Component</h1>
+                <h1>CommentEdit Component</h1>
             </div>
         )
     }

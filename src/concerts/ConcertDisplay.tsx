@@ -1,6 +1,8 @@
 import React from "react";
 import ConcertEdit from "./ConcertEdit";
 import CommentCreate from "./CommentCreate";
+import ConcertComments from "../concerts/ConcertComments"
+
 import {
     Button,
     Table,
@@ -26,26 +28,34 @@ type Concerts = {
 }
 
 type PropsType = {
-    concerts?: Concerts[] | undefined, 
+    concerts?: Concerts[],
     updateConcertId?: (newConcertId: string) => void,
     sessionToken: string | null,
     concertId: string,
     bandName: string,
-    // comments: [],
-    
+    openingAct: string,
+    dateAttended: string,
+    location: string,
+    description: string,
+    comment: string,
+    postId: string,
+    comments: [],
+
     // id: string,
     // fetchConcerts: ()=> void,
 }
 
-// type StateType = {
-//     concertsList: Concerts[],
-//     updateConcertId: () => void,
+type StateType = {
+    // concertsList: Concerts[],
+    // updateConcertId: () => void,
+    concerts: []
+}
 
 
-// }
+// 
 
 // .map in return
-class ConcertDisplay extends React.Component<PropsType, {}>{
+class ConcertDisplay extends React.Component<PropsType, StateType> {
     fetchConcerts(): ((value: any) => any) | null | undefined {
         throw new Error("Method not implemented.");
     }
@@ -53,69 +63,110 @@ class ConcertDisplay extends React.Component<PropsType, {}>{
         super(props)
         this.state = {
             // concertsList: [],
-            
+            concerts: [],
+            // concertsList: [],
+            // updateConcertId: () => void,
 
         }
     }
 
-    handleSubmit=(concert: any)=>{
+    deleteHandleSubmit = (concert: any) => {
         console.log("delete handleSubmit")
         // event.preventDefault()
         fetch(`http://localhost:4000/concerts/delete/${concert.id}`, {
             method: "DELETE",
             headers: new Headers({
-                "Content-Type":"application/json",
+                "Content-Type": "application/json",
                 "Authorization": `${this.props.sessionToken}`
             })
         })
-        .then((res)=> res.json())
-        // .then(this.fetchConcerts())
+            .then((res) => res.json())
+            .then((results) => { this.setState({ concerts: results.concerts }) })
+            // {fetchConcerts()}
     }
+
 
     concertMap = () => {
         return this.props.concerts?.map((concerts: Concerts, index) => {
-            return(
-            <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                    {/* {concerts.id} */}
-                </TableCell>
-                <TableCell>{concerts.bandName}</TableCell>
-                <TableCell>{concerts.openingAct}</TableCell>
-                <TableCell>{concerts.dateAttended}</TableCell>
-                <TableCell>{concerts.location}</TableCell>
-                <TableCell>{concerts.description}</TableCell>
-                <TableCell>{concerts.comment}</TableCell>
-                {/* <TableCell>{concerts.comments}</TableCell> */}
+            return (
+                <TableRow key={index}>
+                    <TableCell component="th" scope="row">
+                        {/* {concerts.id} */}
+                    </TableCell>
+                    <TableCell>{concerts.bandName}</TableCell>
+                    <TableCell>{concerts.openingAct}</TableCell>
+                    <TableCell>{concerts.dateAttended}</TableCell>
+                    <TableCell>{concerts.location}</TableCell>
+                    <TableCell>{concerts.description}</TableCell>
+                    <TableCell>{concerts.comment}</TableCell>
+                    {/* <TableCell>{concerts.comments}</TableCell> */}
 
-                {/* <TableCell><Button variant="contained" color="secondary" onClick={(console.log(concerts.id)}>{concerts.id}</Button></TableCell> */}
-                <TableCell><Button variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(concerts)}>Delete</Button></TableCell>
-                {/* <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell> */}
-                <ConcertEdit sessionToken={this.props.sessionToken}  id={concerts.id} concertId={this.props.concertId} bandName={this.props.bandName}/>
-                {/* <CommentCreate sessionToken={this.props.sessionToken} concertId={this.props.concertId} bandName={this.props.bandName} id={this.props.concertId} openingAct={this.props.}/> */}
-                {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
-                {/* <Link to="concerts/ConcertEdit">
-                    <Button type="submit" variant="contained" color="secondary" onClick={(event) => { this.state.updateConcertId(concerts.id)(event) }}>Update your experience</Button>
-                </Link> */}
+                    {/* <TableCell><Button variant="contained" color="secondary" onClick={(console.log(concerts.id)}>{concerts.id}</Button></TableCell> */}
+                    <TableCell><Button variant="contained" color="secondary" onClick={(event) => this.deleteHandleSubmit(concerts)}>Delete</Button></TableCell>
+                    {/* <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell> */}
+                    <ConcertEdit sessionToken={this.props.sessionToken} id={concerts.id} concertId={this.props.concertId} bandName={this.props.bandName} concert={concerts}/>
+                    <ConcertComments concert={concerts}/>
+                    <CommentCreate sessionToken={this.props.sessionToken} concertId={this.props.concertId} bandName={concerts.bandName} id={concerts.id} openingAct={this.props.openingAct} dateAttended={this.props.dateAttended} location={this.props.location} description={this.props.description} comment={this.props.comment} postId={this.props.postId} />
+                    {/* {fetchConcerts()} */}
+                    {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
+                    <Link to="/ConcertComments">
+                        <Button type="submit" variant="contained" color="secondary"
 
+                            onClick={() => { this.commentsMap() }}
+                        >Concert Comments</Button>
+                    </Link>
 
-            </TableRow>
+                </TableRow>
             )
         })
     }
+
+    commentsMap = () => {
+        return this.props.concerts?.map((concerts: Concerts, index) => {
+            return (
+
+                <TableRow key={index}>
+                    <TableCell component="th" scope="row">
+                    </TableCell>
+                    <TableCell>{concerts.bandName}</TableCell>
+                    {/* <TableCell>{concerts.openingAct}</TableCell> */}
+                    {/* <TableCell>{concerts.dateAttended}</TableCell> */}
+                    {/* <TableCell>{concerts.location}</TableCell> */}
+                    {/* <TableCell>{concerts.description}</TableCell> */}
+                    {/* <TableCell>{concerts.comment}</TableCell> */}
+                    <TableCell>{concerts.comments}</TableCell>
+                    {/* <Button  variant="contained" color="secondary" onClick={this.commentsMap}>Comment
+                       </Button> */}
+                </TableRow>
+            )
+
+        })
+    }
+
+
 
     render() {
         return (
             <div>
                 <h4></h4>
-            <Table>
-                {/* <TableBody> */}
-                {this.concertMap()}
-                
-                
-            </Table>
-            </div> 
+                <Table>
+
+                    {this.concertMap()}
+                    {/* <Button  variant="contained" color="secondary" onClick={this.commentsMap}>Comment
+                       </Button> */}
+                    <Button type="submit" variant="contained" color="secondary"
+
+                        onClick={() => { this.commentsMap() }}
+                    >Concert Comments</Button>
+
+                </Table>
+            </div>
         )
     }
 }
 
 export default ConcertDisplay;
+
+function fetchConcerts() {
+    throw new Error("Function not implemented.");
+}

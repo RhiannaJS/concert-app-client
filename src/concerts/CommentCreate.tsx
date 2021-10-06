@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 type Concerts = {
     id: string,
@@ -15,6 +15,7 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
+    comments: []
 }
 
 type PropsType = {
@@ -27,6 +28,7 @@ type PropsType = {
     location: string,
     description: string,
     comment: string,
+    postId: string,
     // concerts: [{
     //     id: "",
     //     bandName: "",
@@ -38,11 +40,12 @@ type PropsType = {
     // }],
     // sessionToken: string,
     // updateConcert: ()=> void,
-    concertsList: Concerts[]
+    concertsList?: Concerts[]
 
 }
 
 type StateType = {
+    concert: [],
     open: boolean,
     comment: string,
     sessionToken: string | null,
@@ -53,8 +56,27 @@ type StateType = {
     dateAttended: string,
     location: string,
     description: string,
-    concerts: [],
-    concertsList: []
+    concerts: [{
+        id: "",
+        bandName: "",
+        openingAct: "",
+        dateAttended: "",
+        location: "",
+        description: "",
+        comment: "",
+        comments: []
+    }],
+    concertsList: [{
+        id: "",
+        bandName: "",
+        openingAct: "",
+        dateAttended: "",
+        location: "",
+        description: "",
+        comment: "",
+        comments: []
+    }]
+
 }
 
 
@@ -62,6 +84,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props)
         this.state = {
+            concert: [],
             open: false,
             comment: "",
             sessionToken: "",
@@ -72,17 +95,35 @@ class CommentCreate extends React.Component<PropsType, StateType> {
             dateAttended: "",
             location: "",
             description: "",
-            concerts: [],
+            concerts: [{
+                id: "",
+                bandName: "",
+                openingAct: "",
+                dateAttended: "",
+                location: "",
+                description: "",
+                comment: "",
+                comments: []
+            }],
             // sessionToken: string,
             // updateConcert: ()=> void,
-            concertsList: []
+            concertsList: [{
+                id: "",
+                bandName: "",
+                openingAct: "",
+                dateAttended: "",
+                location: "",
+                description: "",
+                comment: "",
+                comments: []
+            }],
         }
     }
 
     // componentDidMount() {
-        fetchCommentCreate(comment: any) {
-            console.log("fetchCommentCreate")
-        fetch(`http://localhost:4000/concerts/comment/comment/${this.props.id}`, {
+    fetchCommentCreate(concertId: any) {
+        console.log("fetchCommentCreate")
+        fetch(`http://localhost:4000/comment/comment/${this.props.id}`, {
             method: "POST",
             body: JSON.stringify({
                 comment: {
@@ -94,18 +135,19 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                 "Authorization": `${this.props.sessionToken}`
             })
         })
-        .then(res=>res.json())
-        .then(json=> this.setState({comment: json}))
-        .catch(e => console.log(e))
+            .then(res => res.json())
+            .then((json) => { this.setState({ comment: json }) }, this.handleClose)
+            .catch(e => console.log(e))
+        this.setState({ open: false })
     }
-// SHOULD I PUT THIS FUNCTION ON MY APP.TSX FILE TO REMAIN CONSISTENT?
-    commentCreate=(event: any)=>{
-        this.setState({comment: event.target.value})
-        console.log(this.state.comment)
-    }
+    // SHOULD I PUT THIS FUNCTION ON MY APP.TSX FILE TO REMAIN CONSISTENT?
+    // commentCreate=(event: any)=>{
+    //     this.setState({comment: event.target.value})
+    //     console.log(this.state.comment)
+    // }
 
     // componentDidUpdate() {
-    //     this.state.concertsList
+    //     this.state.comment
     // }
 
     handleOpen = () => {
@@ -133,8 +175,8 @@ class CommentCreate extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div>
-                <h1>CommentCreate Component</h1>
-                <Button variant='contained' onClick={this.handleOpen}>Comment</Button>
+                <h1></h1>
+                <Button variant="contained" color="success" onClick={this.handleOpen}>CommentCreateComponent {console.log(this.props)}</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -142,24 +184,24 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                     aria-describedby="modal-modal-description"
                 >
                     <FormGroup onSubmit={this.fetchCommentCreate}>
-                    <Box sx={this.style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Add a Comment
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            
-                       
-                        <br />
-                        <Box
-                                component="form"
-                                sx={{
-                                    '& > :not(style)': { m: 1, width: '25ch' },
-                                }}
-                                noValidate
-                                autoComplete="off"
-                            >
-                        <TextField value={this.state.comment} onChange={(e) => {this.setState({comment: e.target.value})}} id="outlined-basic" variant="outlined" label="Comment" color="secondary" focused helperText="Comment"/>
-                        {/* <br />
+                        <Box sx={this.style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Add a Comment
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+
+
+                                <br />
+                                <Box
+                                    component="form"
+                                    sx={{
+                                        '& > :not(style)': { m: 1, width: '25ch' },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" variant="outlined" label="Comment" color="secondary" focused helperText="Comment" />
+                                    {/* <br />
                         <TextField value={this.state.openingAct} onChange={(e) => {this.setState({openingAct: e.target.value})}}id="outlined-basic" label="Opening Act" variant="outlined" color="secondary" focused/>
                         <br />
                         <TextField value={this.state.dateAttended} onChange={(e) => {this.setState({dateAttended: e.target.value})}}id="outlined-basic" label="Date of Show" variant="outlined" color="secondary" focused/>
@@ -170,10 +212,10 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                         <br />
                         <TextField value={this.state.comment} onChange={(e) => {this.setState({comment: e.target.value})}}id="outlined-basic" label="Comment" variant="outlined" color="secondary" focused/>
                         <br /> */}
-                        </Box>
-                        </Typography>
+                                </Box>
+                            </Typography>
 
-                        {/* <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" >
+                            {/* <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" >
                             <Grid item xs={8}>
                                 <Button variant='contained' onClick={this.handleClose}>X</Button>
                             </Grid>
@@ -185,13 +227,13 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                             </Grid>
                             <Link to="/concerts/ConcertEdit">
                         </Grid> */}
-                        <Button  variant="contained" color="secondary" onClick={(e) =>{this.fetchCommentCreate(e)}}>Add
-                       </Button>
-                    </Box>
+                            <Button variant="contained" color="secondary" onClick={(e) => { this.fetchCommentCreate(e) }}>Add
+                            </Button>
+                        </Box>
                     </FormGroup>
                 </Modal>
             </div>
-               
+
         )
     }
 }

@@ -29,6 +29,10 @@ type Concerts = {
   comment: string,
 }
 
+// type PropsType ={
+//   fetchConcerts: ()=> void, 
+// }
+
 type StateType = {
   handleClose: any,
   handleOpen: any,
@@ -37,6 +41,7 @@ type StateType = {
   userRole: string,
   userId: string,
   concertId: string,
+  postId: string,
   // updateConcertId: ()=> void,
   updateActive: any,
   concertToUpdate: string,
@@ -47,10 +52,11 @@ type StateType = {
   location: string,
   description: string,
   comment: string,
+  comments: [],
   commentId: string,
   concertsList: Concerts[],
   concerts: [],
-  // fetchConcerts: ()=> void,
+ 
   concert: []
 
 
@@ -69,6 +75,7 @@ type StateType = {
 // }
 
 export default class App extends React.Component<{}, StateType> {
+ 
   constructor(props: any) {
     super(props);
     this.state = {
@@ -79,6 +86,7 @@ export default class App extends React.Component<{}, StateType> {
       sessionToken: "",
       userRole: "user",
       userId: "",
+      postId: "",
       // updateConcert: "",
       updateActive: false,
       concertId: "",
@@ -91,6 +99,7 @@ export default class App extends React.Component<{}, StateType> {
       location: "",
       description: "",
       comment: "",
+      comments: [],
       concerts: [],
       concertsList: []
 
@@ -214,6 +223,8 @@ export default class App extends React.Component<{}, StateType> {
             comment={this.state.comment}
             concerts={this.state.concerts}
             concertsList={this.state.concertsList}
+            postId={this.state.postId}
+            comments={this.state.comments}
             // concert={this.state.concert.id}
 
           />

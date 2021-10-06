@@ -30,18 +30,23 @@ type StateType = {
    concertsList: Concerts[], 
    username: string,
    bandName: string,
-   comments: []
+   openingAct: string,
+   dateAttended: string,
+   location: string,
+   description: string,
+   comment: string,
+   postId: string,
+   comments: [],
    
   }
 
 type PropsType = {
-    
     sessionToken: string | null,
     userRole: string | null;
     username: string | null;
     concerts?: Concerts []
     concertId: string,
-    
+    // fetchConcerts: ()=> void,
    
 }  
   
@@ -55,6 +60,12 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             // concerts: []
             username: "",
             bandName: "",
+            openingAct: "",
+            dateAttended: "",
+            location: "",
+            description: "",
+            comment: "",
+            postId: "",
             comments: [],
             
             
@@ -72,7 +83,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             })
         })
             .then(res=>res.json())
-            .then(json=> this.setState({concertsList: json}))
+            .then((json)=> {this.setState({concertsList: json})})
             .catch(e=> console.log(e))
             
         }
@@ -88,7 +99,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
                 <div>
                     <Navbar sessionToken={this.props.sessionToken} username={this.props.username} />
                     <h1>ConcertIndex Component</h1>
-                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} bandName={this.state.bandName}/>
+                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} bandName={this.state.bandName} openingAct={this.state.openingAct} dateAttended={this.state.dateAttended} location={this.state.location} description={this.state.description} comment={this.state.comment} comments={this.state.comments}  postId={this.state.postId}/>
                     
                     {/* clearToken={this.props.sessionToken} */}
                     </div>

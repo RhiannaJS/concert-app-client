@@ -39,6 +39,7 @@ type PropsType = {
     id: string,
     concertId: string,
     bandName: string,
+    concert: Concerts
     // concert: [],
     // Concerts: []
     // concertsList.id: string,
@@ -74,19 +75,19 @@ type StateType = {
 // let concertsList: Array<Concerts>
 
 class ConcertEdit extends React.Component<PropsType, StateType>{
-    constructor(props: StateType) {
+    constructor(props: PropsType) {
         super(props)
         this.state = {
             concert: [],
             open: false,
-            concertId: "",
+            concertId: this.props.concertId,
             id: "",
-            bandName: "",
-            openingAct: "",
-            dateAttended: "",
-            location: "",
-            description: "",
-            comment: "",
+            bandName: this.props.concert.bandName,
+            openingAct: this.props.concert.openingAct,
+            dateAttended: this.props.concert.dateAttended,
+            location: this.props.concert.location,
+            description: this.props.concert.description,
+            comment: this.props.concert.comment,
             concerts: [{
                 id: "",
                 bandName: "",
@@ -112,6 +113,8 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
         }
     }
 
+    
+
     // Edit Fetch with State Variables
     // componentDidMount() 
     fetchEditConcerts = (concertId: any) => {
@@ -135,7 +138,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             })
         })
             .then(res => res.json())
-            .then((json) => {this.setState({ concertsList: json })},
+            .then((json) => {this.setState({ concert: json })},
             this.handleClose)
             .catch(e => console.log(e))
             this.setState({open: false})
@@ -170,7 +173,9 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
     // Will contain Edit Modal and Edit Functionality
     render() {
         return (
+
             <div>
+                {/* {console.log(this.props)} */}
                 {/* <h1>ConcertEdit Component</h1> */}
             <Button variant='contained' onClick={this.handleOpen}>Edit</Button>
                 <Modal
