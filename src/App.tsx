@@ -17,6 +17,7 @@ type concert ={
   location: string,
   description: string,
   comment: string,
+  comments: any
 }
 
 type Concerts = {
@@ -27,6 +28,7 @@ type Concerts = {
   location: string,
   description: string,
   comment: string,
+  comments: any,
 }
 
 // type PropsType ={
@@ -173,7 +175,7 @@ export default class App extends React.Component<{}, StateType> {
 
       // (<Navbar sessionToken={this.state.sessionToken} username={this.state.username}/>)
 
-      (<ConcertIndex concertId={this.state.concertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} />)
+      (<ConcertIndex concertId={this.state.concertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} clearToken={this.clearToken}/>)
       :
 
       (<Auth /*sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} */ updateSessionToken={this.updateSessionToken} updateUserRole={this.updateUserRole} />))

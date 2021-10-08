@@ -76,12 +76,14 @@ export default class Login extends React.Component<PropsType, StateType>{
                     autoComplete="off"
                 >
                     <div>
-                        <TextField value={this.state.username} onChange={(event) => this.changeHandlerUsername(event)}
+                        <TextField className="tField" value={this.state.username} onChange={(event) => this.changeHandlerUsername(event)}
                             required
                             id="outlined-required"
                             label="username"
                             defaultValue="username"
                             helperText="Enter username"
+                            color="error"
+                            focused
                         />
 
                         <TextField value={this.state.password} onChange={(event) => this.changeHandlerPassword(event)}
@@ -91,21 +93,27 @@ export default class Login extends React.Component<PropsType, StateType>{
                             type="password"
                             defaultValue="password"
                             helperText="Enter 5 character password"
+                            color="error"
+                            
+                            focused
                         />
 
                         <TextField value={this.state.email} onChange={(event) => this.changeHandlerEmail(event)}
+                        required
                             id="outlined-number"
                             label="email"
                             type="email"
                             defaultValue="email@email.com"
                             helperText="Enter email Address"
+                            color="error"
+                            focused
                             InputLabelProps={{
                                 shrink: true,
                             }}
                         />
                     </div>
                     
-                    <Button variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(event)}>Login</Button>
+                    <Button id="Btn" variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(event)}>Login</Button>
                 </Box>
                 {/* <ConcertIndex updateSessionToken={this.props.updateSessionToken} userRole={this.props.userRole} username={this.props.username} /> */}
             </div>

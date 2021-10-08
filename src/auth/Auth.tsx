@@ -66,7 +66,7 @@ class Auth extends React.Component <PropsType, StateType> {
             {/* </div> */}
             {/* <ConcertIndex sessionToken={this.props.sessionToken} userRole={this.props.userRole} username={this.props.username} /> */}
             <br/>
-            <Button variant="contained" color="secondary" onClick={(event)=>this.rlToggle(event)}>
+            <Button id="Btn" variant="contained" color="secondary" onClick={(event)=>this.rlToggle(event)}>
             {this.state.displayLogin ? "Login" : "Create an Account"}</Button>
             </div>
             </div>

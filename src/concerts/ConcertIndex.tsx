@@ -1,6 +1,7 @@
 import React from "react";
 import ConcertDisplay from "./ConcertDisplay"
 import Navbar from "../home/Navbar";
+import Button from "@mui/material/Button"
 
 // THIS FILE SHOULD CONTAIN EDIT BUTTON SHOULD HAVE A FUNCTION THAT RUNS IF THE USER IS NEW AND HAS NO CONCERTS TO SHOW YET???.  IF TIME ADD A SEARCH BAR TO SEARCH FOR OTHERS CONCERT POSTS
 
@@ -23,7 +24,7 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
-    comments: []
+    comments: any
 }
 
 type StateType = {
@@ -36,7 +37,7 @@ type StateType = {
    description: string,
    comment: string,
    postId: string,
-   comments: [],
+   comments: any,
    
   }
 
@@ -46,6 +47,7 @@ type PropsType = {
     username: string | null;
     concerts?: Concerts []
     concertId: string,
+    clearToken: ()=> void,
     // fetchConcerts: ()=> void,
    
 }  
@@ -74,6 +76,7 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         }
         
         componentDidMount(){this.fetchConcerts()}
+
         fetchConcerts = () => {
             fetch("http://localhost:4000/concerts/mine", {
             method: "GET",
@@ -83,7 +86,9 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             })
         })
             .then(res=>res.json())
-            .then((json)=> {this.setState({concertsList: json})})
+            .then((json)=> {
+                console.log(json)
+                this.setState({concertsList: json})})
             .catch(e=> console.log(e))
             
         }
@@ -97,11 +102,11 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         render(){
             return(
                 <div>
-                    <Navbar sessionToken={this.props.sessionToken} username={this.props.username} />
+                    <Navbar sessionToken={this.props.sessionToken} username={this.props.username} clearToken={this.props.clearToken}/>
                     <h1>ConcertIndex Component</h1>
-                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} bandName={this.state.bandName} openingAct={this.state.openingAct} dateAttended={this.state.dateAttended} location={this.state.location} description={this.state.description} comment={this.state.comment} comments={this.state.comments}  postId={this.state.postId}/>
+                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} bandName={this.state.bandName} openingAct={this.state.openingAct} dateAttended={this.state.dateAttended} location={this.state.location} description={this.state.description} comment={this.state.comment} comments={this.state.comments}  postId={this.state.postId}fetchConcerts={this.fetchConcerts}/>
                     
-                    {/* clearToken={this.props.sessionToken} */}
+                    
                     </div>
                     )
                 }

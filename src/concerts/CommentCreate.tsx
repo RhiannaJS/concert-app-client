@@ -15,7 +15,7 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
-    comments: []
+    comments: any
 }
 
 type PropsType = {
@@ -29,18 +29,7 @@ type PropsType = {
     description: string,
     comment: string,
     postId: string,
-    // concerts: [{
-    //     id: "",
-    //     bandName: "",
-    //     openingAct: "",
-    //     dateAttended: "",
-    //     location: "",
-    //     description: "",
-    //     comment: "",
-    // }],
-    // sessionToken: string,
-    // updateConcert: ()=> void,
-    concertsList?: Concerts[]
+    // concertsList?: Concerts[]
 
 }
 
@@ -105,8 +94,6 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                 comment: "",
                 comments: []
             }],
-            // sessionToken: string,
-            // updateConcert: ()=> void,
             concertsList: [{
                 id: "",
                 bandName: "",
@@ -140,11 +127,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
             .catch(e => console.log(e))
         this.setState({ open: false })
     }
-    // SHOULD I PUT THIS FUNCTION ON MY APP.TSX FILE TO REMAIN CONSISTENT?
-    // commentCreate=(event: any)=>{
-    //     this.setState({comment: event.target.value})
-    //     console.log(this.state.comment)
-    // }
+   
 
     // componentDidUpdate() {
     //     this.state.comment
@@ -176,7 +159,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
         return (
             <div>
                 <h1></h1>
-                <Button variant="contained" color="success" onClick={this.handleOpen}>CommentCreateComponent {console.log(this.props)}</Button>
+                <Button id="Btn1" variant="contained" color="primary" onClick={this.handleOpen}>CommCreateComp {console.log(this.props)}</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}

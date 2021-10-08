@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background: rgb(82, 82, 82);
+  color: white;
 }
 
 .App-logo {
@@ -36,3 +38,43 @@
     transform: rotate(360deg);
   }
 }
+
+/* Navbar Styling */
+.Navbar{
+  background: red !important;
+}
+
+/* #Appbar {
+  display: grid !important;
+  grid-template-columns: 20% 20% 20% 20% 20% !important;
+  grid-template-rows: 20% 20% 20% 20% 20% !important;
+  
+}
+
+#addShow {
+  grid-column-start: 2 !important;
+}
+
+#logout {
+  grid-column-start: 5 !important;
+} */
+
+.Navbar_text {
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.add_a_show {
+  background: black !important;
+  box-shadow: 3px 5px rgb(97, 53, 53) !important
+}
+
+#Btn {
+  background: red !important;
+  box-shadow: 3px 5px black !important;
+}
+
+.tField {
+  color: white !important;
+}
+

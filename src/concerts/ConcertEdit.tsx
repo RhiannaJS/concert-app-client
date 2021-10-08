@@ -28,6 +28,7 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
+    comments: any
 }
 
 type PropsType = {
@@ -97,15 +98,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                 description: "",
                 comment: "",
             }],
-            concertsList: [{
-                id: "",
-                bandName: "",
-                openingAct: "",
-                dateAttended: "",
-                location: "",
-                description: "",
-                comment: "",
-            }],
+            concertsList: [],
             sessionToken: "",
             // concertToUpdate: "",
             // updateConcert: ()=> void,
@@ -137,7 +130,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                 "Authorization": `${this.props.sessionToken}`
             })
         })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then((json) => {this.setState({ concert: json })},
             this.handleClose)
             .catch(e => console.log(e))
@@ -177,7 +170,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             <div>
                 {/* {console.log(this.props)} */}
                 {/* <h1>ConcertEdit Component</h1> */}
-            <Button variant='contained' onClick={this.handleOpen}>Edit</Button>
+            <Button id="Btn" variant='contained' onClick={this.handleOpen}>Concert Edit</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -215,19 +208,6 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                         <br />
                         </Box>
                         </Typography>
-
-                        {/* <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" >
-                            <Grid item xs={8}>
-                                <Button variant='contained' onClick={this.handleClose}>X</Button>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Button variant='contained' onClick={this.handleClose}>Submit</Button>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Button variant='contained' onClick={this.handleClose}>Update</Button>
-                            </Grid>
-                            <Link to="/concerts/ConcertEdit">
-                        </Grid> */}
                         <Button  variant="contained" color="secondary" onClick={(e) =>{this.fetchEditConcerts(e)}}>Update
                        </Button>
                     </Box>
@@ -246,8 +226,6 @@ export default ConcertEdit;
 
 
 
-//     return (
-//         <div>
 
 
 

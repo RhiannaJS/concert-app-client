@@ -19,6 +19,7 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
+    comments: any
 }
 
 type PropsType = {
@@ -79,15 +80,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                 description: "",
                 comment: "",
             }],
-            concertsList: [{
-                id: "",
-                bandName: "",
-                openingAct: "",
-                dateAttended: "",
-                location: "",
-                description: "",
-                comment: "",
-            }],
+            concertsList: [],
         }
 
     }
@@ -116,23 +109,11 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                 "Authorization": `${this.props.sessionToken}`
             })
         })
-        //     .then((res) => res.json())
-        //     .then((concertData) => {
-        //         console.log(concertData),
-        //         this.state.bandName,
-        //         this.state.openingAct,
-        //         this.state.dateAttended,
-        //         this.state.location,
-        //         this.state.description,
-        //         this.state.comment
-        //     })
-        // }
             .then((res) => res.json())
             .then((json) => {this.setState({ concert: json })},
             this.handleClose)
             .catch(err => console.log(err))
-
-        this.setState({open: false})
+            this.setState({open: false})
     }
     // NEED TO COME BACK TO THIS TO GET THE MODAL TO CLOSE AND THE CONCERTINDEX TO 
 
@@ -200,7 +181,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
             <div>
                 {/* <h1>ConcertCreate Component</h1> */}
                 {/* <Button variant="contained"{...this.state.open}>Create Button</Button> */}
-                <Button variant="contained" color="secondary" onClick={this.handleOpen}>Add a Show</Button>
+                <Button id="addShow" className="add_a_show" variant="contained" color="secondary" onClick={this.handleOpen}>Add a Show</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}

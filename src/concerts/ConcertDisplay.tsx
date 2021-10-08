@@ -2,6 +2,7 @@ import React from "react";
 import ConcertEdit from "./ConcertEdit";
 import CommentCreate from "./CommentCreate";
 import ConcertComments from "../concerts/ConcertComments"
+import CommentEdit from "../concerts/CommentEdit"
 
 import {
     Button,
@@ -23,11 +24,12 @@ type Concerts = {
     location: string,
     description: string,
     comment: string,
-    comments: [],
+    comments: any,
 
 }
 
 type PropsType = {
+    // commentsMap: ()=> void,
     concerts?: Concerts[],
     updateConcertId?: (newConcertId: string) => void,
     sessionToken: string | null,
@@ -39,7 +41,9 @@ type PropsType = {
     description: string,
     comment: string,
     postId: string,
-    comments: [],
+    comments: any,
+    fetchConcerts: () => void,
+    
 
     // id: string,
     // fetchConcerts: ()=> void,
@@ -63,9 +67,10 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
         super(props)
         this.state = {
             // concertsList: [],
-            concerts: [],
+            concerts: []
             // concertsList: [],
             // updateConcertId: () => void,
+            
 
         }
     }
@@ -82,9 +87,12 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
         })
             .then((res) => res.json())
             .then((results) => { this.setState({ concerts: results.concerts }) })
+        this.props.fetchConcerts()
             // {fetchConcerts()}
     }
 
+    
+    
 
     concertMap = () => {
         return this.props.concerts?.map((concerts: Concerts, index) => {
@@ -100,48 +108,51 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
                     <TableCell>{concerts.description}</TableCell>
                     <TableCell>{concerts.comment}</TableCell>
                     {/* <TableCell>{concerts.comments}</TableCell> */}
+                    {/* <TableCell>{concerts.comments}</TableCell> */}
 
                     {/* <TableCell><Button variant="contained" color="secondary" onClick={(console.log(concerts.id)}>{concerts.id}</Button></TableCell> */}
-                    <TableCell><Button variant="contained" color="secondary" onClick={(event) => this.deleteHandleSubmit(concerts)}>Delete</Button></TableCell>
+                    <TableCell><Button variant="contained" color="secondary" onClick={(event) => this.deleteHandleSubmit(concerts)}>Concert Delete</Button></TableCell>
                     {/* <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell> */}
                     <ConcertEdit sessionToken={this.props.sessionToken} id={concerts.id} concertId={this.props.concertId} bandName={this.props.bandName} concert={concerts}/>
-                    <ConcertComments concert={concerts}/>
+                    <ConcertComments concert={concerts} />
                     <CommentCreate sessionToken={this.props.sessionToken} concertId={this.props.concertId} bandName={concerts.bandName} id={concerts.id} openingAct={this.props.openingAct} dateAttended={this.props.dateAttended} location={this.props.location} description={this.props.description} comment={this.props.comment} postId={this.props.postId} />
+                    <CommentEdit sessionToken={this.props.sessionToken} concertId={this.props.concertId} id={concerts.id} comment={this.props.comment} />
                     {/* {fetchConcerts()} */}
                     {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
-                    <Link to="/ConcertComments">
-                        <Button type="submit" variant="contained" color="secondary"
-
-                            onClick={() => { this.commentsMap() }}
-                        >Concert Comments</Button>
-                    </Link>
+                    {/* <Link to="/ConcertComments">
+                        <Button type="submit" variant="contained" color="secondary" 
+                         id="Btn1"
+                            onClick={(e) => { this.commentsMap() }} 
+                        >Con Com(display)</Button>
+                    </Link> */}
 
                 </TableRow>
             )
         })
     }
+/*.comments*/
+    // commentsMap = () => {
+    //     return this.props.concerts?.map((concerts: Concerts, index) => {
+    //         console.log("commentsMap")
+    //         return (
+                
+    //             <TableRow key={index}>
+    //                 <TableCell component="th" scope="row">
+    //                 </TableCell>
+    //                 <TableCell>{concerts.bandName}</TableCell>
+    //                 <TableCell>{concerts.comments}</TableCell>
+    //                 <TableCell>{concerts.openingAct}</TableCell>
+    //                  <TableCell>{concerts.dateAttended}</TableCell> 
+    //                  <TableCell>{concerts.location}</TableCell> 
+    //                  <TableCell>{concerts.description}</TableCell> 
+    //                 <TableCell>{concerts.comment}</TableCell> 
+    //                 <Button  variant="contained" color="secondary" onClick={this.commentsMap()}>Comment
+    //                    </Button> 
+    //             </TableRow>
+    //         )
 
-    commentsMap = () => {
-        return this.props.concerts?.map((concerts: Concerts, index) => {
-            return (
-
-                <TableRow key={index}>
-                    <TableCell component="th" scope="row">
-                    </TableCell>
-                    <TableCell>{concerts.bandName}</TableCell>
-                    {/* <TableCell>{concerts.openingAct}</TableCell> */}
-                    {/* <TableCell>{concerts.dateAttended}</TableCell> */}
-                    {/* <TableCell>{concerts.location}</TableCell> */}
-                    {/* <TableCell>{concerts.description}</TableCell> */}
-                    {/* <TableCell>{concerts.comment}</TableCell> */}
-                    <TableCell>{concerts.comments}</TableCell>
-                    {/* <Button  variant="contained" color="secondary" onClick={this.commentsMap}>Comment
-                       </Button> */}
-                </TableRow>
-            )
-
-        })
-    }
+    //     })
+    // }
 
 
 
@@ -154,10 +165,9 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
                     {this.concertMap()}
                     {/* <Button  variant="contained" color="secondary" onClick={this.commentsMap}>Comment
                        </Button> */}
-                    <Button type="submit" variant="contained" color="secondary"
-
+                    {/* <Button type="submit" variant="contained" color="secondary"
                         onClick={() => { this.commentsMap() }}
-                    >Concert Comments</Button>
+                    >Concert Comments123</Button> */}
 
                 </Table>
             </div>
@@ -167,6 +177,3 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
 
 export default ConcertDisplay;
 
-function fetchConcerts() {
-    throw new Error("Function not implemented.");
-}

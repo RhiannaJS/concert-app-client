@@ -18,11 +18,9 @@ import {Link} from "react-router-dom";
 
 
 type PropsType = {
-    // clearToken: ()=> void,
+    clearToken: ()=> void,
     sessionToken: string | null,
     username: string | null | undefined,
-    
-    // clearToken: () => void,
 }
 
 
@@ -38,7 +36,7 @@ render(){
   return (
     <>
     <Box sx={{ flexGrow: 1}}>
-      <AppBar position="fixed">
+      <AppBar className="Navbar" id="Appbar" position="fixed">
         <Toolbar>
           <IconButton
             size="large"
@@ -52,19 +50,20 @@ render(){
 
            
               {/* <Link to="/concerts/ConcertCreate"><Button variant="contained" color="secondary">Create a New Experience!</Button></Link> */}
-              <hr/>
-              <Link to="/concerts/CommentCreate"><Button variant="contained" color="secondary">Add Comment</Button></Link>
+              {/* <hr/> */}
+              {/* <Link to="/concerts/CommentCreate"><Button variant="contained" color="secondary">Add Comment</Button></Link>
               <Link to="/concerts/ConcertEdit"><Button variant="contained" color="secondary">Edit an Experience
-              </Button></Link>
-              <hr/>
-              <Link to="/concerts/ConcertDisplay"><Button variant="contained" color="secondary">My Experiences</Button></Link>
+              </Button></Link> */}
+              {/* <hr/> */}
+              <Link to="/concerts/ConcertDisplay"><Button className="add_a_show"  variant="contained" color="secondary">My Experiences</Button></Link>
               <ConcertCreate sessionToken={this.props.sessionToken} />
               <Button></Button>
             
-            <MenuIcon/> 
+            {/* <MenuIcon/>  */}
             
           </IconButton>
-          <Typography
+          <Typography 
+            className="Navbar_text"
             variant="h6"
             noWrap
             component="div"
@@ -72,7 +71,8 @@ render(){
           >
             My Concert Experience
           </Typography>
-         
+          <Button id="logout" className="add_a_show" variant="contained" color="secondary"  onClick={()=>{this.props.clearToken()}}>Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
