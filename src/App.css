@@ -72,9 +72,35 @@
 #Btn {
   background: red !important;
   box-shadow: 3px 5px black !important;
+  color: black !important;
+  font-weight: bold !important;
+  
 }
 
 .tField {
   color: white !important;
+  font-weight: bold !important;
+}
+
+.commentRow {
+  color: red !important;
+}
+
+.closeBtn {
+  background: red !important;
+  box-shadow: 3px 5px black !important;
+  font-weight: bold !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+#closeBtn {
+  display: flex !important;
+  justify-content: right !important;
+}
+
+#cmtTbl {
+  color: white !important;
+  font-weight: bold !important;
 }
 

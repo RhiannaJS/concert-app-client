@@ -1,4 +1,4 @@
-// import React from "react";
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -9,9 +9,6 @@ import ConcertIndex from "../concerts/ConcertIndex"
 type PropsType = {
     updateSessionToken: (newToken: string) => void;
     updateUserRole: (newUserRole: string) => void;
-    // sessionToken: string | null,
-    // userRole: string,
-    // username: string;
 }
 
 type StateType = {
@@ -115,7 +112,6 @@ export default class Login extends React.Component<PropsType, StateType>{
                     
                     <Button id="Btn" variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(event)}>Login</Button>
                 </Box>
-                {/* <ConcertIndex updateSessionToken={this.props.updateSessionToken} userRole={this.props.userRole} username={this.props.username} /> */}
             </div>
         )
     }

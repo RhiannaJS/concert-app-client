@@ -159,7 +159,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
         return (
             <div>
                 <h1></h1>
-                <Button id="Btn1" variant="contained" color="primary" onClick={this.handleOpen}>CommCreateComp {console.log(this.props)}</Button>
+                <Button id="Btn" variant="contained" color="primary" onClick={this.handleOpen}>Add Comment{console.log(this.props)}</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}

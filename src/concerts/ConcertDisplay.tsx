@@ -29,10 +29,10 @@ type Concerts = {
 }
 
 type PropsType = {
-    // commentsMap: ()=> void,
+    com: any,
     concerts?: Concerts[],
-    updateConcertId?: (newConcertId: string) => void,
     sessionToken: string | null,
+    commentId: string,
     concertId: string,
     bandName: string,
     openingAct: string,
@@ -43,15 +43,10 @@ type PropsType = {
     postId: string,
     comments: any,
     fetchConcerts: () => void,
-    
-
-    // id: string,
-    // fetchConcerts: ()=> void,
+   
 }
 
 type StateType = {
-    // concertsList: Concerts[],
-    // updateConcertId: () => void,
     concerts: []
 }
 
@@ -66,11 +61,9 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props)
         this.state = {
-            // concertsList: [],
             concerts: []
-            // concertsList: [],
-            // updateConcertId: () => void,
-            
+           
+
 
         }
     }
@@ -88,71 +81,50 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
             .then((res) => res.json())
             .then((results) => { this.setState({ concerts: results.concerts }) })
         this.props.fetchConcerts()
-            // {fetchConcerts()}
+        // {fetchConcerts()}
     }
 
-    
-    
+
+
 
     concertMap = () => {
         return this.props.concerts?.map((concerts: Concerts, index) => {
             return (
-                <TableRow key={index}>
-                    <TableCell component="th" scope="row">
+                
+                   
+                    <TableRow>
+                        <TableCell component="th" scope="row">{concerts.bandName}</TableCell>
                         {/* {concerts.id} */}
-                    </TableCell>
-                    <TableCell>{concerts.bandName}</TableCell>
-                    <TableCell>{concerts.openingAct}</TableCell>
-                    <TableCell>{concerts.dateAttended}</TableCell>
-                    <TableCell>{concerts.location}</TableCell>
-                    <TableCell>{concerts.description}</TableCell>
-                    <TableCell>{concerts.comment}</TableCell>
-                    {/* <TableCell>{concerts.comments}</TableCell> */}
-                    {/* <TableCell>{concerts.comments}</TableCell> */}
+                        {/* <TableCell>{concerts.bandName}</TableCell> */}
+                        <TableCell align="right">{concerts.openingAct}</TableCell>
+                        <TableCell align="right">{concerts.dateAttended}</TableCell>
+                        <TableCell align="right">{concerts.location}</TableCell>
+                        <TableCell align="right">{concerts.description}</TableCell>
+                        <TableCell align="right">{concerts.comment}</TableCell>
+                        {/* <TableCell>{concerts.comments}</TableCell> */}
+                        {/* <TableCell>{concerts.comments}</TableCell> */}
 
-                    {/* <TableCell><Button variant="contained" color="secondary" onClick={(console.log(concerts.id)}>{concerts.id}</Button></TableCell> */}
-                    <TableCell><Button variant="contained" color="secondary" onClick={(event) => this.deleteHandleSubmit(concerts)}>Concert Delete</Button></TableCell>
-                    {/* <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell> */}
-                    <ConcertEdit sessionToken={this.props.sessionToken} id={concerts.id} concertId={this.props.concertId} bandName={this.props.bandName} concert={concerts}/>
-                    <ConcertComments concert={concerts} />
-                    <CommentCreate sessionToken={this.props.sessionToken} concertId={this.props.concertId} bandName={concerts.bandName} id={concerts.id} openingAct={this.props.openingAct} dateAttended={this.props.dateAttended} location={this.props.location} description={this.props.description} comment={this.props.comment} postId={this.props.postId} />
-                    <CommentEdit sessionToken={this.props.sessionToken} concertId={this.props.concertId} id={concerts.id} comment={this.props.comment} />
-                    {/* {fetchConcerts()} */}
-                    {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
-                    {/* <Link to="/ConcertComments">
+                        {/* <TableCell><Button variant="contained" color="secondary" onClick={(console.log(concerts.id)}>{concerts.id}</Button></TableCell> */}
+                        <TableCell><Button id="Btn" variant="contained" color="secondary" onClick={(event) => this.deleteHandleSubmit(concerts)}>Delete Show</Button></TableCell>
+                        {/* <TableCell><Button variant="contained" color="primary">Edit</Button></TableCell> */}
+                        <TableCell><ConcertEdit sessionToken={this.props.sessionToken} id={concerts.id} concertId={this.props.concertId} bandName={this.props.bandName} concert={concerts} /></TableCell>
+                        <TableCell><ConcertComments concert={concerts}  sessionToken={this.props.sessionToken} commentId={this.props.commentId} fetchConcerts={this.props.fetchConcerts}/></TableCell>
+                        <TableCell><CommentCreate sessionToken={this.props.sessionToken} concertId={this.props.concertId} bandName={concerts.bandName} id={concerts.id} openingAct={this.props.openingAct} dateAttended={this.props.dateAttended} location={this.props.location} description={this.props.description} comment={this.props.comment} postId={this.props.postId} /></TableCell>
+                        {/* <TableCell></TableCell> */}
+                        {/* {fetchConcerts()} */}
+                        {/* <TableCell>{this.props.concerts.bandName}</TableCell> */}
+                        {/* <Link to="/ConcertComments">
                         <Button type="submit" variant="contained" color="secondary" 
                          id="Btn1"
                             onClick={(e) => { this.commentsMap() }} 
                         >Con Com(display)</Button>
                     </Link> */}
-
-                </TableRow>
+                    </TableRow>
+                 
             )
         })
     }
-/*.comments*/
-    // commentsMap = () => {
-    //     return this.props.concerts?.map((concerts: Concerts, index) => {
-    //         console.log("commentsMap")
-    //         return (
-                
-    //             <TableRow key={index}>
-    //                 <TableCell component="th" scope="row">
-    //                 </TableCell>
-    //                 <TableCell>{concerts.bandName}</TableCell>
-    //                 <TableCell>{concerts.comments}</TableCell>
-    //                 <TableCell>{concerts.openingAct}</TableCell>
-    //                  <TableCell>{concerts.dateAttended}</TableCell> 
-    //                  <TableCell>{concerts.location}</TableCell> 
-    //                  <TableCell>{concerts.description}</TableCell> 
-    //                 <TableCell>{concerts.comment}</TableCell> 
-    //                 <Button  variant="contained" color="secondary" onClick={this.commentsMap()}>Comment
-    //                    </Button> 
-    //             </TableRow>
-    //         )
-
-    //     })
-    // }
+  
 
 
 
@@ -160,16 +132,23 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
         return (
             <div>
                 <h4></h4>
-                <Table>
-
+                <TableContainer>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                            <TableCell className="tField"> Headliner</TableCell>
+                            <TableCell className="tField" align="right">Opening Act</TableCell>
+                            <TableCell className="tField" align="right">Date of the show</TableCell>
+                            <TableCell className="tField" align="right">Location</TableCell>
+                            <TableCell className="tField" align="right">Description</TableCell>
+                            <TableCell className="tField" align="right">Tell us about the show!</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                     {this.concertMap()}
-                    {/* <Button  variant="contained" color="secondary" onClick={this.commentsMap}>Comment
-                       </Button> */}
-                    {/* <Button type="submit" variant="contained" color="secondary"
-                        onClick={() => { this.commentsMap() }}
-                    >Concert Comments123</Button> */}
-
-                </Table>
+                    </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
         )
     }

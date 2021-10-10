@@ -170,7 +170,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             <div>
                 {/* {console.log(this.props)} */}
                 {/* <h1>ConcertEdit Component</h1> */}
-            <Button id="Btn" variant='contained' onClick={this.handleOpen}>Concert Edit</Button>
+            <Button id="Btn" variant='contained' onClick={this.handleOpen}>Edit Show</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}

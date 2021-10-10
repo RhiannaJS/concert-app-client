@@ -3,6 +3,7 @@ import CommentCreate from "../concerts/CommentCreate"
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import CommentEdit from "./CommentEdit"
 import {
     Button,
     Table,
@@ -46,6 +47,9 @@ type Concerts = {
 
 
 type PropsType = {
+    sessionToken: string | null,
+    commentId: string,
+    fetchConcerts: ()=> void,
     // commentsMap: ()=> void,
     // concertsList?: Concerts[] ,
     // open: boolean,
@@ -67,6 +71,7 @@ type StateType = {
     concert: [],
     concerts: [],
     comments: any,
+    com: any
 }
 
 class ConcertComments extends React.Component<PropsType, StateType>{
@@ -97,8 +102,24 @@ class ConcertComments extends React.Component<PropsType, StateType>{
             // }],
             comments: [],
             open: false,
+            com: [],
         }
     }
+
+    // fetchCommentDelete = (com: any) => {
+    //     console.log("Comment Delete")
+    //     fetch(`http://localhost:4000/comment/comment/delete${this.props.id}`,{
+    //         method: "DELETE",
+    //         headers: new Headers({
+    //             "Content-Type": "application/json",
+    //             "Authorization": `${this.props.sessionToken}`
+    //         })
+    //     })
+    //     .then((res) => res.json())
+    //     .then((results) => {this.setState({ com: results.com})})
+    //     this.props.fetchConcerts()
+    //     this.commentsMap()
+    // }
 
     handleOpen = () => {
         // event.preventDefault()
@@ -130,48 +151,64 @@ class ConcertComments extends React.Component<PropsType, StateType>{
             console.log("this is the comment console.log", comment)
             return (
                 <div>
-                    {console.log(index)}
-                        {/* {comment.bandName} */}
+                    {console.log(index, comment.content)}
+                    {/* {comment.bandName} */}
                     <TableRow key={index}>
-                    <TableCell>{comment.content.bandName}</TableCell>
-                    <TableCell>{comment.openingAct}</TableCell>
-                    <TableCell>{comment.dateAttended}</TableCell>
-                    <TableCell>{comment.comments}</TableCell>
+                        
+                        <TableCell>{comment.content}</TableCell>
+                       <TableCell><CommentEdit sessionToken={this.props.sessionToken}  id={comment.id} com={comment.content} commentId={this.props.commentId} fetchConcerts={this.props.fetchConcerts} commentsMap={this.commentsMap}/></TableCell>
+                       {/* <TableCell><Button onClick={(e) =>{this.fetchCommentDelete(e)}}>Delete</Button></TableCell> */}
+                        {/* <TableCell>{comment.dateAttended}</TableCell>
+                        <TableCell>{comment.comments}</TableCell> */}
+                        {/* <TableCell>{comment.content.bandName}</TableCell> */}
                     </TableRow>
-                 
+
                 </div>
             )
 
         })
     }
-    
+
     render() {
         return (
             <div>
-                <Button id="Btn" variant="contained" color="secondary" onClick={this.handleOpen}>Concert Comments234</Button>
-                    <Modal
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={this.style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                            {this.commentsMap()}
-                            
-                            </Typography>
-                            <Typography  id="modal-modal-description" sx={{ mt: 2 }} >
+                <Button id="Btn" variant="contained" color="secondary" onClick={this.handleOpen}>Comments</Button>
+                <Modal
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={this.style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <TableContainer>
+                                <div id="closeBtn">
+                            <Button className="closeBtn" onClick={this.handleClose}>X</Button>
+                            </div>
+                                <h4>{this.props.concert.bandName}</h4>
+                                <p>{this.props.concert.dateAttended}</p>
+                                <Table id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)'}}>
+                                    <TableHead>
+                                        <TableRow className="commentRow">
+                                            {this.commentsMap()}
+                                        </TableRow>
+                                    </TableHead>
+                                </Table>
+                            </TableContainer>
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }} >
                             {/* {this.commentsMap()} */}
-                            </Typography>
-                        </Box>
-                    </Modal>
-                    {/* {this.commentsMap} */}
-                    {/* { console.log(this.props)} */}
-                    {/* <h1>THIS IS CONCERT COMMENTS</h1> */}
-                    {/* <h3>concert comments</h3> */}
-                    <Button variant="contained" color="secondary" onClick={this.commentsMap}>Comment567
-                    </Button>
-                
+                        </Typography>
+                    </Box>
+                </Modal>
+
+                {/* {this.commentsMap} */}
+                {/* { console.log(this.props)} */}
+                {/* <h1>THIS IS CONCERT COMMENTS</h1> */}
+                {/* <h3>concert comments</h3> */}
+                {/* <Button variant="contained" color="secondary" onClick={this.commentsMap}>Comment567
+                </Button> */}
+
                 {/* {this.commentsMap} */}
             </div>
         )

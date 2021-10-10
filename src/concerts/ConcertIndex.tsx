@@ -3,19 +3,6 @@ import ConcertDisplay from "./ConcertDisplay"
 import Navbar from "../home/Navbar";
 import Button from "@mui/material/Button"
 
-// THIS FILE SHOULD CONTAIN EDIT BUTTON SHOULD HAVE A FUNCTION THAT RUNS IF THE USER IS NEW AND HAS NO CONCERTS TO SHOW YET???.  IF TIME ADD A SEARCH BAR TO SEARCH FOR OTHERS CONCERT POSTS
-
-
-interface ConcertDetails{
-    id: string,
-    bandName: string,
-    openingAct: string,
-    dateAttended: string,
-    location: string,
-    description: string,
-    comment: string,
-}
-
 type Concerts = {
     id: string,
     bandName: string,
@@ -48,7 +35,8 @@ type PropsType = {
     concerts?: Concerts []
     concertId: string,
     clearToken: ()=> void,
-    // fetchConcerts: ()=> void,
+    commentId: string,
+    
    
 }  
   
@@ -59,7 +47,6 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         super(props)
         this.state={
             concertsList: [],
-            // concerts: []
             username: "",
             bandName: "",
             openingAct: "",
@@ -102,9 +89,30 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
         render(){
             return(
                 <div>
-                    <Navbar sessionToken={this.props.sessionToken} username={this.props.username} clearToken={this.props.clearToken}/>
+                    <Navbar 
+                    sessionToken={this.props.sessionToken} 
+                    username={this.props.username} 
+                    clearToken={this.props.clearToken}/>
+
                     <h1>ConcertIndex Component</h1>
-                    <ConcertDisplay sessionToken={this.props.sessionToken} concertId={this.props.concertId} concerts={this.state.concertsList} bandName={this.state.bandName} openingAct={this.state.openingAct} dateAttended={this.state.dateAttended} location={this.state.location} description={this.state.description} comment={this.state.comment} comments={this.state.comments}  postId={this.state.postId}fetchConcerts={this.fetchConcerts}/>
+
+                    <ConcertDisplay 
+                    sessionToken={this.props.sessionToken} 
+                    concertId={this.props.concertId} 
+                    concerts={this.state.concertsList} 
+                    bandName={this.state.bandName} 
+                    openingAct={this.state.openingAct} 
+                    dateAttended={this.state.dateAttended} 
+                    location={this.state.location} 
+                    description={this.state.description} 
+                    comment={this.state.comment} 
+                    comments={this.state.comments}  
+                    postId={this.state.postId}
+                    fetchConcerts={this.fetchConcerts}
+                    commentId={this.props.commentId}
+                    com={this.state.comment}
+                    
+                    />
                     
                     
                     </div>

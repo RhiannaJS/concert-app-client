@@ -8,9 +8,6 @@ import ConcertIndex from "../concerts/ConcertIndex";
 type PropsType = {
     updateSessionToken: (newToken: string) => void;
     updateUserRole: (newRole: string) => void;
-    // sessionToken: string | null;
-    // userRole: string;
-    // username: string | null;
 }
 
 type StateType = {
@@ -23,11 +20,6 @@ class Auth extends React.Component <PropsType, StateType> {
     constructor(props: PropsType){
         super(props);
         this.state = {
-            // sessionToken: "",
-            // userRole: "",
-            // username: "",
-            // updateSessionToken: "",
-            // upddateUserRole: "",
             displayLogin: false,
         }
     }
@@ -56,15 +48,7 @@ class Auth extends React.Component <PropsType, StateType> {
                 {this.state.displayLogin ? (
                     <Register updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/>)
                 : ( <Login updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/> )}
-            {/* <Register updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/> */}
-
-            {/* <Login updateSessionToken={this.props.updateSessionToken} updateUserRole={this.props.updateUserRole}/> */}
-
-            {/* {Login ? <Login sessionToken={this.props.sessionToken} updateUserRole={this.props.updateUserRole} updateSessionToken={this.props.updateSessionToken}/>  :   */}
-
-            {/* <Register updateUserRole={this.props.updateUserRole} updateSessionToken={this.props.updateSessionToken}/>} */}
-            {/* </div> */}
-            {/* <ConcertIndex sessionToken={this.props.sessionToken} userRole={this.props.userRole} username={this.props.username} /> */}
+            
             <br/>
             <Button id="Btn" variant="contained" color="secondary" onClick={(event)=>this.rlToggle(event)}>
             {this.state.displayLogin ? "Login" : "Create an Account"}</Button>

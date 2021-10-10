@@ -19,19 +19,21 @@ type Concerts = {
 
 type PropsType = {
     sessionToken: string | null,
-    concertId: string,
     id: string,
-    comment: string,
-    // comments: [],
+    com: string,
+    commentId: string,
+    fetchConcerts: ()=> void
+    commentsMap: ()=> void
+    
+  
 
 }
 
 type StateType = {
     // comments: [],
     open: boolean,
-    comment: string,
+    com: string,
     sessionToken: string | null,
-    concertId: string,
     id: string,
  
 }
@@ -41,24 +43,23 @@ class CommentEdit extends React.Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props)
         this.state = {
-            // comments: [],
-            comment: this.props.comment,
+            com: this.props.com,
             open: false,
             sessionToken: "",
-            concertId: this.props.concertId,
             id: this.props.id,
          
         }
     }
 
     // componentDidMount() {
-    fetchCommentEdit = (event: any) => {
+    fetchCommentEdit = (com: any) => {
         console.log("fetchCommentEdit")
         fetch(`http://localhost:4000/comment/comment/update/${this.props.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 comment: {
-                    content: this.state.comment,
+                    content: this.state.com,
+                    // id: this.props.commentId,
                 }
             }),
             headers: new Headers({
@@ -67,10 +68,12 @@ class CommentEdit extends React.Component<PropsType, StateType> {
             })
         })
             .then((res) => res.json())
-            .then((json) => { this.setState({ comment: json })}, 
+            .then((json) => { this.setState({ com: json })}, 
             this.handleClose)
             .catch(e => console.log(e))
             this.setState({ open: false })
+            this.props.fetchConcerts()
+            this.props.commentsMap()
     }
 
     handleOpen = () => {
@@ -101,9 +104,7 @@ class CommentEdit extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div>
-                {/* <h3>CommentEdit Component</h3> */}
-
-                <Button id="Btn" variant="contained" color="primary" onClick={this.handleOpen}>CommEditComp {console.log(this.props)}</Button>
+                <Button id="Btn" variant="contained" color="primary" onClick={this.handleOpen}>Edit{console.log(this.props)}</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -112,6 +113,9 @@ class CommentEdit extends React.Component<PropsType, StateType> {
                 >
                     <FormGroup onSubmit={this.fetchCommentEdit}>
                         <Box sx={this.style}>
+                        <div id="closeBtn">
+                            <Button className="closeBtn" onClick={this.handleClose}>X</Button>
+                            </div>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                Update your comment
                             </Typography>
@@ -127,10 +131,10 @@ class CommentEdit extends React.Component<PropsType, StateType> {
                                     noValidate
                                     autoComplete="off"
                                 >
-                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({comment: e.target.value })}} id="outlined-basic" variant="outlined" label="Comment" color="secondary" focused helperText="Comment" />
+                                    <TextField value={this.state.com} onChange={(e) => { this.setState({com: e.target.value })}} id="outlined-basic" variant="outlined" label="Comment" color="error" focused helperText="Comment" />
                                 </Box>
                             </Typography>
-                            <Button variant="contained" color="secondary" onClick={(e) => { this.fetchCommentEdit(e) }}>Update
+                            <Button id="Btn" variant="contained" color="secondary" onClick={(e) => { this.fetchCommentEdit(e) }}>Update
                             </Button>
                         </Box>
                     </FormGroup>
