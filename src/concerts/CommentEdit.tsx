@@ -6,36 +6,17 @@ import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup"
 
-type Concerts = {
-    id: string,
-    bandName: string,
-    openingAct: string,
-    dateAttended: string,
-    location: string,
-    description: string,
-    comment: string,
-    comments: any,
-}
-
 type PropsType = {
     sessionToken: string | null,
-    id: string,
-    com: string,
     commentId: string,
+    com: string,
     fetchConcerts: ()=> void
     commentsMap: ()=> void
-    
-  
-
 }
 
 type StateType = {
-    // comments: [],
     open: boolean,
     com: string,
-    sessionToken: string | null,
-    id: string,
- 
 }
 
 
@@ -45,21 +26,17 @@ class CommentEdit extends React.Component<PropsType, StateType> {
         this.state = {
             com: this.props.com,
             open: false,
-            sessionToken: "",
-            id: this.props.id,
-         
         }
     }
 
     // componentDidMount() {
     fetchCommentEdit = (com: any) => {
         console.log("fetchCommentEdit")
-        fetch(`http://localhost:4000/comment/comment/update/${this.props.id}`, {
+        fetch(`http://localhost:4000/comment/comment/update/${this.props.commentId}`, {
             method: "PUT",
             body: JSON.stringify({
                 comment: {
                     content: this.state.com,
-                    // id: this.props.commentId,
                 }
             }),
             headers: new Headers({
@@ -77,7 +54,6 @@ class CommentEdit extends React.Component<PropsType, StateType> {
     }
 
     handleOpen = () => {
-        // event.preventDefault()
         this.setState({ open: true })
     }
 
@@ -97,9 +73,9 @@ class CommentEdit extends React.Component<PropsType, StateType> {
         p: 4,
     }
 
-    // componentDidUpdate() {
-    //     this.state.concertsList
-    // }
+    componentDidUpdate() {
+        console.log(this.state.com)
+    }
 
     render() {
         return (

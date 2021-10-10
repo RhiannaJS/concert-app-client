@@ -21,6 +21,7 @@ type PropsType = {
     clearToken: ()=> void,
     sessionToken: string | null,
     username: string | null | undefined,
+    // fetchConcerts: () => void,
 }
 
 
@@ -56,7 +57,7 @@ render(){
               </Button></Link> */}
               {/* <hr/> */}
               <Link to="/concerts/ConcertDisplay"><Button className="add_a_show"  variant="contained" color="secondary">My Experiences</Button></Link>
-              <ConcertCreate sessionToken={this.props.sessionToken} />
+              <ConcertCreate sessionToken={this.props.sessionToken}/>
               <Button></Button>
             
             {/* <MenuIcon/>  */}

@@ -5,67 +5,20 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup"
-import { Link } from "react-router-dom"
 
-type Concerts = {
-    id: string,
-    bandName: string,
-    openingAct: string,
-    dateAttended: string,
-    location: string,
-    description: string,
-    comment: string,
-    comments: any
-}
 
 type PropsType = {
     sessionToken: string | null,
     concertId: string,
-    id: string,
     bandName: string,
-    openingAct: string,
-    dateAttended: string,
-    location: string,
-    description: string,
     comment: string,
-    postId: string,
-    // concertsList?: Concerts[]
+
 
 }
 
 type StateType = {
-    concert: [],
     open: boolean,
     comment: string,
-    sessionToken: string | null,
-    concertId: string,
-    id: string,
-    bandName: string,
-    openingAct: string,
-    dateAttended: string,
-    location: string,
-    description: string,
-    concerts: [{
-        id: "",
-        bandName: "",
-        openingAct: "",
-        dateAttended: "",
-        location: "",
-        description: "",
-        comment: "",
-        comments: []
-    }],
-    concertsList: [{
-        id: "",
-        bandName: "",
-        openingAct: "",
-        dateAttended: "",
-        location: "",
-        description: "",
-        comment: "",
-        comments: []
-    }]
-
 }
 
 
@@ -73,44 +26,15 @@ class CommentCreate extends React.Component<PropsType, StateType> {
     constructor(props: PropsType) {
         super(props)
         this.state = {
-            concert: [],
             open: false,
             comment: "",
-            sessionToken: "",
-            concertId: "",
-            id: "",
-            bandName: "",
-            openingAct: "",
-            dateAttended: "",
-            location: "",
-            description: "",
-            concerts: [{
-                id: "",
-                bandName: "",
-                openingAct: "",
-                dateAttended: "",
-                location: "",
-                description: "",
-                comment: "",
-                comments: []
-            }],
-            concertsList: [{
-                id: "",
-                bandName: "",
-                openingAct: "",
-                dateAttended: "",
-                location: "",
-                description: "",
-                comment: "",
-                comments: []
-            }],
         }
     }
 
     // componentDidMount() {
     fetchCommentCreate(concertId: any) {
         console.log("fetchCommentCreate")
-        fetch(`http://localhost:4000/comment/comment/${this.props.id}`, {
+        fetch(`http://localhost:4000/comment/comment/${this.props.concertId}`, {
             method: "POST",
             body: JSON.stringify({
                 comment: {
@@ -129,12 +53,11 @@ class CommentCreate extends React.Component<PropsType, StateType> {
     }
    
 
-    // componentDidUpdate() {
-    //     this.state.comment
-    // }
+    componentDidUpdate() {
+        console.log(this.state.comment)
+    }
 
     handleOpen = () => {
-        // event.preventDefault()
         this.setState({ open: true })
     }
 
@@ -172,7 +95,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                                 Add a Comment
                             </Typography>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
+                                <h3>{this.props.bandName}</h3>
 
                                 <br />
                                 <Box
@@ -183,33 +106,10 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                                     noValidate
                                     autoComplete="off"
                                 >
+                                    
                                     <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" variant="outlined" label="Comment" color="secondary" focused helperText="Comment" />
-                                    {/* <br />
-                        <TextField value={this.state.openingAct} onChange={(e) => {this.setState({openingAct: e.target.value})}}id="outlined-basic" label="Opening Act" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.dateAttended} onChange={(e) => {this.setState({dateAttended: e.target.value})}}id="outlined-basic" label="Date of Show" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.location} onChange={(e) => {this.setState({location: e.target.value})}}id="outlined-basic" label="Location" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.description} onChange={(e) => {this.setState({description: e.target.value})}} id="outlined-basic" label="Description" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.comment} onChange={(e) => {this.setState({comment: e.target.value})}}id="outlined-basic" label="Comment" variant="outlined" color="secondary" focused/>
-                        <br /> */}
                                 </Box>
                             </Typography>
-
-                            {/* <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" >
-                            <Grid item xs={8}>
-                                <Button variant='contained' onClick={this.handleClose}>X</Button>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Button variant='contained' onClick={this.handleClose}>Submit</Button>
-                            </Grid>
-                            <Grid item xs={8}>
-                                <Button variant='contained' onClick={this.handleClose}>Update</Button>
-                            </Grid>
-                            <Link to="/concerts/ConcertEdit">
-                        </Grid> */}
                             <Button variant="contained" color="secondary" onClick={(e) => { this.fetchCommentCreate(e) }}>Add
                             </Button>
                         </Box>

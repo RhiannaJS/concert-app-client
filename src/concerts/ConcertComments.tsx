@@ -14,25 +14,7 @@ import {
     TableRow,
     Paper,
 } from "@material-ui/core"
-// import { Concerts } from '../site/SwitchController'
 
-// type Concerts = {
-//     id: string,
-//     bandName: string,
-//     openingAct: string,
-//     dateAttended: string,
-//     location: string,
-//     description: string,
-//     comment: string,
-//     comments: [
-//         context: string,
-//     ],
-
-// }
-
-// interface comments {
-//     context: []
-// }
 
 type Concerts = {
     id: string,
@@ -48,78 +30,43 @@ type Concerts = {
 
 type PropsType = {
     sessionToken: string | null,
-    commentId: string,
     fetchConcerts: ()=> void,
-    // commentsMap: ()=> void,
-    // concertsList?: Concerts[] ,
-    // open: boolean,
     concert: Concerts,
-    // concerts?: Concerts[],
-    // id: string,
-    // bandName: string,
-    // openingAct: string,
-    // dateAttended: string,
-    // location: string,
-    // description: string,
-    // comment: string,
-    // comments: any,
-    // commentsMap: ()=> void,
+    commentId: string,
+    // com: string,
+    comment: string,
 }
 
 type StateType = {
     open: boolean,
-    concert: [],
-    concerts: [],
-    comments: any,
-    com: any
+    comments: [],
+    // com: string,
 }
 
 class ConcertComments extends React.Component<PropsType, StateType>{
     constructor(props: PropsType) {
         super(props)
         this.state = {
-            concert: [],
-            // [{
-            //     id: this.props.id,
-            //     bandName: this.props.bandName,
-            //     openingAct: this.props.openingAct,
-            //     dateAttended: this.props.dateAttended,
-            //     location: this.props.location,
-            //     description: this.props.description,
-            //     comment: this.props.comment,
-            //     comments: []
-            // }],
-            // open: false,
-            concerts: [],
-            // concertsList: [{
-            //     id: "",
-            //     bandName: "",
-            //     openingAct: "",
-            //     dateAttended: "",
-            //     location: "",
-            //     description: "",
-            //     comment: "",
-            // }],
-            comments: [],
             open: false,
-            com: [],
+            comments: [],
+            // com: this.state.com
         }
     }
 
-    // fetchCommentDelete = (com: any) => {
-    //     console.log("Comment Delete")
-    //     fetch(`http://localhost:4000/comment/comment/delete${this.props.id}`,{
-    //         method: "DELETE",
-    //         headers: new Headers({
-    //             "Content-Type": "application/json",
-    //             "Authorization": `${this.props.sessionToken}`
-    //         })
-    //     })
-    //     .then((res) => res.json())
-    //     .then((results) => {this.setState({ com: results.com})})
-    //     this.props.fetchConcerts()
-    //     this.commentsMap()
-    // }
+    fetchCommentDelete = (comment: any) => {
+        console.log("Comment Delete")
+        fetch(`http://localhost:4000/comment/comment/delete/${comment.id}`,{
+            method: "DELETE",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": `${this.props.sessionToken}`
+            })
+        })
+        .then((res) => res.json())
+        .then((results) => {this.setState({ comments: results.comments})})
+        this.props.fetchConcerts()
+        this.commentsMap()
+    }
 
     handleOpen = () => {
         // event.preventDefault()
@@ -156,8 +103,10 @@ class ConcertComments extends React.Component<PropsType, StateType>{
                     <TableRow key={index}>
                         
                         <TableCell>{comment.content}</TableCell>
-                       <TableCell><CommentEdit sessionToken={this.props.sessionToken}  id={comment.id} com={comment.content} commentId={this.props.commentId} fetchConcerts={this.props.fetchConcerts} commentsMap={this.commentsMap}/></TableCell>
-                       {/* <TableCell><Button onClick={(e) =>{this.fetchCommentDelete(e)}}>Delete</Button></TableCell> */}
+                       <TableCell>
+                           <CommentEdit sessionToken={this.props.sessionToken}  commentId={comment.id} com={comment.content} fetchConcerts={this.props.fetchConcerts} commentsMap={this.commentsMap}/>
+                        </TableCell>
+                       <TableCell><Button onClick={(event) => this.fetchCommentDelete(comment)}>Delete</Button></TableCell>
                         {/* <TableCell>{comment.dateAttended}</TableCell>
                         <TableCell>{comment.comments}</TableCell> */}
                         {/* <TableCell>{comment.content.bandName}</TableCell> */}
@@ -197,19 +146,9 @@ class ConcertComments extends React.Component<PropsType, StateType>{
                             </TableContainer>
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-                            {/* {this.commentsMap()} */}
                         </Typography>
                     </Box>
                 </Modal>
-
-                {/* {this.commentsMap} */}
-                {/* { console.log(this.props)} */}
-                {/* <h1>THIS IS CONCERT COMMENTS</h1> */}
-                {/* <h3>concert comments</h3> */}
-                {/* <Button variant="contained" color="secondary" onClick={this.commentsMap}>Comment567
-                </Button> */}
-
-                {/* {this.commentsMap} */}
             </div>
         )
     }

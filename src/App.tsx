@@ -175,7 +175,7 @@ export default class App extends React.Component<{}, StateType> {
 
       // (<Navbar sessionToken={this.state.sessionToken} username={this.state.username}/>)
 
-      (<ConcertIndex concertId={this.state.concertId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} clearToken={this.clearToken} commentId={this.state.commentId}/>)
+      (<ConcertIndex concertId={this.state.concertId} commentId={this.state.commentId} sessionToken={this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} clearToken={this.clearToken}/>)
       :
 
       (<Auth /*sessionToken = {this.state.sessionToken} userRole={this.state.userRole} username={this.state.username} */ updateSessionToken={this.updateSessionToken} updateUserRole={this.updateUserRole} />))
@@ -227,6 +227,7 @@ export default class App extends React.Component<{}, StateType> {
             concertsList={this.state.concertsList}
             postId={this.state.postId}
             comments={this.state.comments}
+            // fetchConcerts={this.props.fetchConcerts}
             // concert={this.state.concert.id}
 
           />

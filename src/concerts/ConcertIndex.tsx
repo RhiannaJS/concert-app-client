@@ -23,7 +23,6 @@ type StateType = {
    location: string,
    description: string,
    comment: string,
-   postId: string,
    comments: any,
    
   }
@@ -34,8 +33,9 @@ type PropsType = {
     username: string | null;
     concerts?: Concerts []
     concertId: string,
-    clearToken: ()=> void,
     commentId: string,
+    clearToken: ()=> void,
+    // commentId: string,
     
    
 }  
@@ -54,7 +54,6 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             location: "",
             description: "",
             comment: "",
-            postId: "",
             comments: [],
             
             
@@ -92,9 +91,10 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
                     <Navbar 
                     sessionToken={this.props.sessionToken} 
                     username={this.props.username} 
-                    clearToken={this.props.clearToken}/>
+                    clearToken={this.props.clearToken}
+                    />
 
-                    <h1>ConcertIndex Component</h1>
+                    {/* <h1>ConcertIndex Component</h1> */}
 
                     <ConcertDisplay 
                     sessionToken={this.props.sessionToken} 
@@ -107,10 +107,9 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
                     description={this.state.description} 
                     comment={this.state.comment} 
                     comments={this.state.comments}  
-                    postId={this.state.postId}
                     fetchConcerts={this.fetchConcerts}
-                    commentId={this.props.commentId}
                     com={this.state.comment}
+                    commentId={this.props.commentId}
                     
                     />
                     

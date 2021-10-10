@@ -4,21 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link"
 import FormGroup from "@mui/material/FormGroup"
-
-
-interface ConcertDetails {
-    id: string,
-    bandName: string,
-    openingAct: string,
-    dateAttended: string,
-    location: string,
-    description: string,
-    comment: string,
-}
-
 
 type Concerts = {
     id: string,
@@ -32,48 +18,21 @@ type Concerts = {
 }
 
 type PropsType = {
-    // handleOpen: ()=> void,
-    // handleClose: () => void,
-    updateConcertId?: () => void,
     sessionToken: string | null,
-    concertsList?: Concerts[],
-    id: string,
     concertId: string,
-    bandName: string,
     concert: Concerts
-    // concert: [],
-    // Concerts: []
-    // concertsList.id: string,
 }
 
 type StateType = {
-    // handleOpen: ()=> void,
-    // handleClose: () => void,
     concert: [],
     open: boolean,
-    concertId: string,
-    id: string,
     bandName: string,
     openingAct: string,
     dateAttended: string,
     location: string,
     description: string,
     comment: string,
-    concerts: [{
-        id: "",
-        bandName: "",
-        openingAct: "",
-        dateAttended: "",
-        location: "",
-        description: "",
-        comment: "",
-    }],
-    sessionToken: string,
-    // updateConcert: ()=> void,
-    concertsList: Concerts[]
 }
-
-// let concertsList: Array<Concerts>
 
 class ConcertEdit extends React.Component<PropsType, StateType>{
     constructor(props: PropsType) {
@@ -81,38 +40,20 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
         this.state = {
             concert: [],
             open: false,
-            concertId: this.props.concertId,
-            id: "",
             bandName: this.props.concert.bandName,
             openingAct: this.props.concert.openingAct,
             dateAttended: this.props.concert.dateAttended,
             location: this.props.concert.location,
             description: this.props.concert.description,
             comment: this.props.concert.comment,
-            concerts: [{
-                id: "",
-                bandName: "",
-                openingAct: "",
-                dateAttended: "",
-                location: "",
-                description: "",
-                comment: "",
-            }],
-            concertsList: [],
-            sessionToken: "",
-            // concertToUpdate: "",
-            // updateConcert: ()=> void,
-
         }
     }
 
-    
 
-    // Edit Fetch with State Variables
     // componentDidMount() 
     fetchEditConcerts = (concertId: any) => {
         console.log("edit fetchEditConcerts")
-        fetch(`http://localhost:4000/concerts/update/${this.props.id}`, {
+        fetch(`http://localhost:4000/concerts/update/${this.props.concertId}`, {
             method: "PUT",
             body: JSON.stringify({
                 concert: {
@@ -163,13 +104,11 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
         p: 4,
     };
 
-    // Will contain Edit Modal and Edit Functionality
     render() {
         return (
 
             <div>
                 {/* {console.log(this.props)} */}
-                {/* <h1>ConcertEdit Component</h1> */}
             <Button id="Btn" variant='contained' onClick={this.handleOpen}>Edit Show</Button>
                 <Modal
                     open={this.state.open}
