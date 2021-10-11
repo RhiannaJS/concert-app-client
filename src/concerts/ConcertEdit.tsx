@@ -72,10 +72,10 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
             })
         })
             .then((res) => res.json())
-            .then((json) => {this.setState({ concert: json })},
-            this.handleClose)
+            .then((json) => { this.setState({ concert: json }) },
+                this.handleClose)
             .catch(e => console.log(e))
-            this.setState({open: false})
+        this.setState({ open: false })
     }
 
     handleOpen = () => {
@@ -109,47 +109,50 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
 
             <div>
                 {/* {console.log(this.props)} */}
-            <Button id="Btn" variant='contained' onClick={this.handleOpen}>Edit Show</Button>
+                <Button id="Btn" variant='contained' onClick={this.handleOpen}>Edit Show</Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
+
                     <FormGroup onSubmit={this.fetchEditConcerts}>
-                    <Box sx={this.style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Edit a Show
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            
-                       
-                        <br />
-                        <Box
-                                component="form"
-                                sx={{
-                                    '& > :not(style)': { m: 1, width: '25ch' },
-                                }}
-                                noValidate
-                                autoComplete="off"
-                            >
-                        <TextField value={this.state.bandName} onChange={(e) => {this.setState({bandName: e.target.value})}} id="outlined-basic" variant="outlined" label="Band Name" color="secondary" focused helperText="Band Name"/>
-                        <br />
-                        <TextField value={this.state.openingAct} onChange={(e) => {this.setState({openingAct: e.target.value})}}id="outlined-basic" label="Opening Act" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.dateAttended} onChange={(e) => {this.setState({dateAttended: e.target.value})}}id="outlined-basic" label="Date of Show" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.location} onChange={(e) => {this.setState({location: e.target.value})}}id="outlined-basic" label="Location" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.description} onChange={(e) => {this.setState({description: e.target.value})}} id="outlined-basic" label="Description" variant="outlined" color="secondary" focused/>
-                        <br />
-                        <TextField value={this.state.comment} onChange={(e) => {this.setState({comment: e.target.value})}}id="outlined-basic" label="Comment" variant="outlined" color="secondary" focused/>
-                        <br />
+                        <Box sx={this.style}>
+                            <div id="closeBtn">
+                                <Button className="closeBtn" onClick={this.handleClose}>X</Button>
+                            </div>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Edit a Show
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                <br />
+                                <Box
+                                    component="form"
+                                    sx={{
+                                        '& > :not(style)': { m: 1, width: '25ch' },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+
+                                    <TextField value={this.state.bandName} onChange={(e) => { this.setState({ bandName: e.target.value }) }} id="outlined-basic" variant="outlined" label="Band Name" color="error" focused helperText="Band Name" />
+                                    <br />
+                                    <TextField value={this.state.openingAct} onChange={(e) => { this.setState({ openingAct: e.target.value }) }} id="outlined-basic" label="Opening Act" variant="outlined" color="error" focused />
+                                    <br />
+                                    <TextField value={this.state.dateAttended} onChange={(e) => { this.setState({ dateAttended: e.target.value }) }} id="outlined-basic" label="Date of Show" variant="outlined" color="error" focused />
+                                    <br />
+                                    <TextField value={this.state.location} onChange={(e) => { this.setState({ location: e.target.value }) }} id="outlined-basic" label="Location" variant="outlined" color="error" focused />
+                                    <br />
+                                    <TextField value={this.state.description} onChange={(e) => { this.setState({ description: e.target.value }) }} id="outlined-basic" label="Description" variant="outlined" color="error" focused />
+                                    <br />
+                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" label="Comment" variant="outlined" color="error" focused />
+                                    <br />
+                                </Box>
+                            </Typography>
+                            <Button id="Btn" variant="contained" color="secondary" onClick={(e) => { this.fetchEditConcerts(e) }}>Update
+                            </Button>
                         </Box>
-                        </Typography>
-                        <Button  variant="contained" color="secondary" onClick={(e) =>{this.fetchEditConcerts(e)}}>Update
-                       </Button>
-                    </Box>
                     </FormGroup>
                 </Modal>
             </div>

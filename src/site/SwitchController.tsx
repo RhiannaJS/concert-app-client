@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Switch, Route } from "react-router-dom";
 import Admin from "../auth/Admin";
 import Auth from "../auth/Auth";
+import ConcertsGetAll from "../concerts/ConcertsGetAll";
 import ConcertCreate from "../concerts/ConcertCreate";
 import ConcertDisplay from "../concerts/ConcertDisplay";
 import ConcertIndex from "../concerts/ConcertIndex";
@@ -48,9 +49,11 @@ type ControllerProps = {
     description: string,
     comment: string,
     postId: string,
-    concerts: [],
+    // commentId: string,
+    concerts: Concerts[],
     concertsList: Concerts[],
     comments: [],
+    allConcerts: Concerts[],
     // concert: []
 
 };
@@ -65,9 +68,15 @@ const SwitchController: FC<ControllerProps> = (props) => {
                     <Navbar sessionToken={props.sessionToken} username={props.username} clearToken={props.clearToken}/>
                 </Route>
                 <Switch>
-
+                    <Route exact path="/concerts/ConcertDisplay">
+                        {props.protectedViews}
+                    </Route>
+                    
                     <Route exact path="/auth">
                         <Auth updateSessionToken={props.updateSessionToken} updateUserRole={props.updateUserRole} />
+                    </Route>
+                    <Route exact path="/concerts/ConcertsGetAll">
+                        <ConcertsGetAll sessionToken={props.sessionToken} allConcerts={props.concerts} concerts={props.concerts} bandName={props.bandName} id={props.id} openingAct={props.openingAct} dateAttended={props.dateAttended} location={props.location} description={props.description} comment={props.comment} comments={props.comments} concertId={props.concertId}/>
                     </Route>
                     {/* <Route exact path="/concerts/ConcertComments">
                         <ConcertComments concert={concerts} />

@@ -83,11 +83,11 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
 
 
     concertMap = () => {
-        return this.props.concerts?.map((concerts: Concerts, index) => {
+        return this.props.concerts?.map((concerts: Concerts, index: number) => {
             return (
                 
                    
-                    <TableRow>
+                    <TableRow key={index}>
                         {/* {concerts.id} */}
                         <TableCell component="th" scope="row">{concerts.bandName}</TableCell>
                         <TableCell align="right">{concerts.openingAct}</TableCell>

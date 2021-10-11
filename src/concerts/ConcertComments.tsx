@@ -94,7 +94,7 @@ class ConcertComments extends React.Component<PropsType, StateType>{
     };
 
     commentsMap = () => {
-        return this.props.concert?.comments.map((comment: any, index: any) => {
+        return this.props.concert?.comments.map((comment: any, index: number) => {
             console.log("this is the comment console.log", comment)
             return (
                 <div>
@@ -106,7 +106,7 @@ class ConcertComments extends React.Component<PropsType, StateType>{
                        <TableCell>
                            <CommentEdit sessionToken={this.props.sessionToken}  commentId={comment.id} com={comment.content} fetchConcerts={this.props.fetchConcerts} commentsMap={this.commentsMap}/>
                         </TableCell>
-                       <TableCell><Button onClick={(event) => this.fetchCommentDelete(comment)}>Delete</Button></TableCell>
+                       <TableCell><Button id="Btn" onClick={(event) => this.fetchCommentDelete(comment)}>Delete</Button></TableCell>
                         {/* <TableCell>{comment.dateAttended}</TableCell>
                         <TableCell>{comment.comments}</TableCell> */}
                         {/* <TableCell>{comment.content.bandName}</TableCell> */}

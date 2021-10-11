@@ -9,7 +9,7 @@ import Admin from "./auth/Admin"
 import Navbar from "./home/Navbar"
 import SwitchController from './site/SwitchController';
 
-type concert ={
+type Concert ={
   id: string,
   bandName: string,
   openingAct: string,
@@ -29,10 +29,12 @@ type Concerts = {
   description: string,
   comment: string,
   comments: any,
+  
 }
 
 // type PropsType ={
 //   fetchConcerts: ()=> void, 
+//   // commentId: string,
 // }
 
 type StateType = {
@@ -199,7 +201,7 @@ export default class App extends React.Component<{}, StateType> {
     return (
       <Router>
         <div className="App">
-          {this.protectedViews()}
+          {/* {this.protectedViews()} */}
           <SwitchController
             // fetchConcerts={this.props.fetchConcerts}
             updateSessionToken={this.updateSessionToken}
@@ -227,7 +229,8 @@ export default class App extends React.Component<{}, StateType> {
             concertsList={this.state.concertsList}
             postId={this.state.postId}
             comments={this.state.comments}
-            // fetchConcerts={this.props.fetchConcerts}
+            allConcerts={this.state.concerts}
+            // commentId={this.props.commentId}
             // concert={this.state.concert.id}
 
           />

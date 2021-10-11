@@ -51,7 +51,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
             .catch(e => console.log(e))
         this.setState({ open: false })
     }
-   
+
 
     componentDidUpdate() {
         console.log(this.state.comment)
@@ -91,6 +91,9 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                 >
                     <FormGroup onSubmit={this.fetchCommentCreate}>
                         <Box sx={this.style}>
+                            <div id="closeBtn">
+                                <Button className="closeBtn" onClick={this.handleClose}>X</Button>
+                            </div>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 Add a Comment
                             </Typography>
@@ -106,11 +109,11 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                                     noValidate
                                     autoComplete="off"
                                 >
-                                    
-                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" variant="outlined" label="Comment" color="secondary" focused helperText="Comment" />
+
+                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" variant="outlined" label="Comment" color="error" focused helperText="Comment" />
                                 </Box>
                             </Typography>
-                            <Button variant="contained" color="secondary" onClick={(e) => { this.fetchCommentCreate(e) }}>Add
+                            <Button id="Btn" variant="contained" color="secondary" onClick={(e) => { this.fetchCommentCreate(e) }}>Add
                             </Button>
                         </Box>
                     </FormGroup>

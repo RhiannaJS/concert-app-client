@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import ConcertIndex from '../concerts/ConcertIndex';
 import ConcertCreate from "../concerts/ConcertCreate"
-// import SwitchController from '../site/SwitchController';
+import ConcertsGetAll from '../concerts/ConcertsGetAll';
+import SwitchController from '../site/SwitchController';
 
 
 import Button from '@mui/material/Button';
@@ -56,9 +57,10 @@ render(){
               <Link to="/concerts/ConcertEdit"><Button variant="contained" color="secondary">Edit an Experience
               </Button></Link> */}
               {/* <hr/> */}
-              <Link to="/concerts/ConcertDisplay"><Button className="add_a_show"  variant="contained" color="secondary">My Experiences</Button></Link>
+              <Link to="/concerts/ConcertsGetAll"><Button className="add_a_show" variant="contained" color="secondary">All Shows</Button></Link>
+              <Link to="/concerts/ConcertDisplay"><Button className="add_a_show"  variant="contained" color="secondary">My Shows</Button></Link>
               <ConcertCreate sessionToken={this.props.sessionToken}/>
-              <Button></Button>
+              
             
             {/* <MenuIcon/>  */}
             
