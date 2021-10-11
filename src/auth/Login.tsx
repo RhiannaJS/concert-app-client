@@ -1,10 +1,7 @@
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
-import ConcertIndex from "../concerts/ConcertIndex"
-
 
 type PropsType = {
     updateSessionToken: (newToken: string) => void;
@@ -58,7 +55,6 @@ export default class Login extends React.Component<PropsType, StateType>{
         this.setState({ email: event.target.value })
     }
 
-
     render() {
         return (
             <div>
@@ -66,14 +62,15 @@ export default class Login extends React.Component<PropsType, StateType>{
                 <h3>Login and let's get this party started!</h3>
                 <Box
                     component="form"
-                    sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch' },
-                    }}
+                    sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }, }}
                     noValidate
                     autoComplete="off"
                 >
                     <div>
-                        <TextField className="tField" value={this.state.username} onChange={(event) => this.changeHandlerUsername(event)}
+                        <TextField
+                            className="tField"
+                            value={this.state.username}
+                            onChange={(event) => this.changeHandlerUsername(event)}
                             required
                             id="outlined-required"
                             label="username"
@@ -82,8 +79,9 @@ export default class Login extends React.Component<PropsType, StateType>{
                             color="error"
                             focused
                         />
-
-                        <TextField value={this.state.password} onChange={(event) => this.changeHandlerPassword(event)}
+                        <TextField
+                            value={this.state.password}
+                            onChange={(event) => this.changeHandlerPassword(event)}
                             required
                             id="outlined-requried"
                             label="Password"
@@ -91,12 +89,12 @@ export default class Login extends React.Component<PropsType, StateType>{
                             defaultValue="password"
                             helperText="Enter 5 character password"
                             color="error"
-                            
                             focused
                         />
-
-                        <TextField value={this.state.email} onChange={(event) => this.changeHandlerEmail(event)}
-                        required
+                        <TextField
+                            value={this.state.email}
+                            onChange={(event) => this.changeHandlerEmail(event)}
+                            required
                             id="outlined-number"
                             label="email"
                             type="email"
@@ -109,8 +107,13 @@ export default class Login extends React.Component<PropsType, StateType>{
                             }}
                         />
                     </div>
-                    
-                    <Button id="Btn" variant="contained" color="secondary" onClick={(event)=>this.handleSubmit(event)}>Login</Button>
+                    <Button
+                        id="Btn"
+                        variant="contained"
+                        color="secondary"
+                        onClick={(event) => this.handleSubmit(event)}>
+                        Login
+                    </Button>
                 </Box>
             </div>
         )

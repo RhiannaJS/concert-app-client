@@ -16,7 +16,7 @@ type PropsType = {
 
 
 class Register extends React.Component <PropsType, StateType> {
-    constructor(props: any){
+    constructor(props: PropsType){
         super(props)
         this.state={
             username: "",

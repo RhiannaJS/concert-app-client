@@ -12,7 +12,7 @@ type PropsType = {
     concertId: string,
     bandName: string,
     comment: string,
-
+    fetchConcerts: ()=> void,
 
 }
 
@@ -102,6 +102,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
 
                                 <br />
                                 <Box
+                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)'}}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },

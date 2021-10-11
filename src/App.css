@@ -39,25 +39,10 @@
   }
 }
 
-/* Navbar Styling */
+/* My Custom Styling */
 .Navbar{
   background: red !important;
 }
-
-/* #Appbar {
-  display: grid !important;
-  grid-template-columns: 20% 20% 20% 20% 20% !important;
-  grid-template-rows: 20% 20% 20% 20% 20% !important;
-  
-}
-
-#addShow {
-  grid-column-start: 2 !important;
-}
-
-#logout {
-  grid-column-start: 5 !important;
-} */
 
 .Navbar_text {
   color: black !important;

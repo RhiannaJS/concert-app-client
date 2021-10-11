@@ -21,6 +21,8 @@ type PropsType = {
     sessionToken: string | null,
     concertId: string,
     concert: Concerts
+    fetchConcerts: ()=> void,
+    concertMap: ()=> void,
 }
 
 type StateType = {
@@ -76,21 +78,17 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                 this.handleClose)
             .catch(e => console.log(e))
         this.setState({ open: false })
+        this.props.fetchConcerts()
+        this.props.concertMap()
     }
 
     handleOpen = () => {
-        // event.preventDefault()
         this.setState({ open: true })
     }
 
     handleClose = () => {
         this.setState({ open: false })
     }
-
-    // componentDidUpdate() {
-    //     this.state.concertsList
-    // }
-
 
     style = {
         position: 'absolute' as 'absolute',
@@ -128,6 +126,7 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 <br />
                                 <Box
+                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)' }}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -136,21 +135,74 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                     autoComplete="off"
                                 >
 
-                                    <TextField value={this.state.bandName} onChange={(e) => { this.setState({ bandName: e.target.value }) }} id="outlined-basic" variant="outlined" label="Band Name" color="error" focused helperText="Band Name" />
+                                    <TextField
+                                        value={this.state.bandName}
+                                        onChange={(e) => { this.setState({ bandName: e.target.value }) }}
+                                        id="outlined-basic"
+                                        variant="outlined"
+                                        label="Band Name"
+                                        color="error"
+                                        focused
+                                        helperText="Band Name" />
                                     <br />
-                                    <TextField value={this.state.openingAct} onChange={(e) => { this.setState({ openingAct: e.target.value }) }} id="outlined-basic" label="Opening Act" variant="outlined" color="error" focused />
+                                    <TextField
+                                        value={this.state.openingAct}
+                                        onChange={(e) => { this.setState({ openingAct: e.target.value }) }}
+                                        id="outlined-basic"
+                                        label="Opening Act"
+                                        variant="outlined"
+                                        color="error"
+                                        focused 
+                                        helperText="Opening Act"/>
                                     <br />
-                                    <TextField value={this.state.dateAttended} onChange={(e) => { this.setState({ dateAttended: e.target.value }) }} id="outlined-basic" label="Date of Show" variant="outlined" color="error" focused />
+                                    <TextField
+                                        value={this.state.dateAttended}
+                                        onChange={(e) => { this.setState({ dateAttended: e.target.value }) }}
+                                        id="outlined-basic"
+                                        label="Date of Show"
+                                        variant="outlined"
+                                        color="error"
+                                        focused 
+                                        helperText="Date"/>
                                     <br />
-                                    <TextField value={this.state.location} onChange={(e) => { this.setState({ location: e.target.value }) }} id="outlined-basic" label="Location" variant="outlined" color="error" focused />
+                                    <TextField
+                                        value={this.state.location}
+                                        onChange={(e) => { this.setState({ location: e.target.value }) }}
+                                        id="outlined-basic"
+                                        label="Location"
+                                        variant="outlined"
+                                        color="error"
+                                        focused 
+                                        helperText="Location"/>
                                     <br />
-                                    <TextField value={this.state.description} onChange={(e) => { this.setState({ description: e.target.value }) }} id="outlined-basic" label="Description" variant="outlined" color="error" focused />
+                                    <TextField
+                                        value={this.state.description}
+                                        onChange={(e) => { this.setState({ description: e.target.value }) }}
+                                        id="outlined-basic"
+                                        label="Description"
+                                        variant="outlined"
+                                        color="error"
+                                        focused 
+                                        helperText="Description"/>
                                     <br />
-                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" label="Comment" variant="outlined" color="error" focused />
+                                    <TextField
+                                        value={this.state.comment}
+                                        onChange={(e) => { this.setState({ comment: e.target.value }) }}
+                                        id="outlined-basic"
+                                        label="Comment"
+                                        variant="outlined"
+                                        color="error"
+                                        focused 
+                                        helperText="Comment"/>
                                     <br />
                                 </Box>
                             </Typography>
-                            <Button id="Btn" variant="contained" color="secondary" onClick={(e) => { this.fetchEditConcerts(e) }}>Update
+                            <Button
+                                id="Btn"
+                                variant="contained"
+                                color="secondary"
+                                onClick={(e) => { this.fetchEditConcerts(e) }}>
+                                Update
                             </Button>
                         </Box>
                     </FormGroup>

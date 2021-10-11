@@ -10,15 +10,14 @@ type PropsType = {
     sessionToken: string | null,
     commentId: string,
     com: string,
-    fetchConcerts: ()=> void
-    commentsMap: ()=> void
+    fetchConcerts: () => void
+    commentsMap: () => void
 }
 
 type StateType = {
     open: boolean,
     com: string,
 }
-
 
 class CommentEdit extends React.Component<PropsType, StateType> {
     constructor(props: PropsType) {
@@ -45,12 +44,12 @@ class CommentEdit extends React.Component<PropsType, StateType> {
             })
         })
             .then((res) => res.json())
-            .then((json) => { this.setState({ com: json })}, 
-            this.handleClose)
+            .then((json) => { this.setState({ com: json }) },
+                this.handleClose)
             .catch(e => console.log(e))
-            this.setState({ open: false })
-            this.props.fetchConcerts()
-            this.props.commentsMap()
+        this.setState({ open: false })
+        this.props.fetchConcerts()
+        this.props.commentsMap()
     }
 
     handleOpen = () => {
@@ -80,7 +79,14 @@ class CommentEdit extends React.Component<PropsType, StateType> {
     render() {
         return (
             <div>
-                <Button id="Btn" variant="contained" color="primary" onClick={this.handleOpen}>Edit{console.log(this.props)}</Button>
+                <Button
+                    id="Btn"
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleOpen}>
+                    Edit
+                    {console.log(this.props)}
+                </Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -89,17 +95,26 @@ class CommentEdit extends React.Component<PropsType, StateType> {
                 >
                     <FormGroup onSubmit={this.fetchCommentEdit}>
                         <Box sx={this.style}>
-                        <div id="closeBtn">
-                            <Button className="closeBtn" onClick={this.handleClose}>X</Button>
+                            <div id="closeBtn">
+                                <Button
+                                    className="closeBtn"
+                                    onClick={this.handleClose}>
+                                    X
+                                </Button>
                             </div>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                               Update your comment
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                component="h2">
+                                Update your comment
                             </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
-
+                            <Typography
+                                id="modal-modal-description"
+                                sx={{ mt: 2 }}>
                                 <br />
                                 <Box
+                                    id="cmtTbl"
+                                    style={{ backgroundColor: 'rgb(82, 82, 82)' }}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -107,15 +122,27 @@ class CommentEdit extends React.Component<PropsType, StateType> {
                                     noValidate
                                     autoComplete="off"
                                 >
-                                    <TextField value={this.state.com} onChange={(e) => { this.setState({com: e.target.value })}} id="outlined-basic" variant="outlined" label="Comment" color="error" focused helperText="Comment" />
+                                    <TextField
+                                        value={this.state.com}
+                                        onChange={(e) => { this.setState({ com: e.target.value }) }}
+                                        id="outlined-basic"
+                                        variant="outlined"
+                                        label="Comment"
+                                        color="error"
+                                        focused
+                                        helperText="Comment" />
                                 </Box>
                             </Typography>
-                            <Button id="Btn" variant="contained" color="secondary" onClick={(e) => { this.fetchCommentEdit(e) }}>Update
+                            <Button
+                                id="Btn"
+                                variant="contained"
+                                color="secondary"
+                                onClick={(e) => { this.fetchCommentEdit(e) }}>
+                                Update
                             </Button>
                         </Box>
                     </FormGroup>
                 </Modal>
-
             </div>
         )
     }

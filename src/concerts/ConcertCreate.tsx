@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup"
 import { Link } from "react-router-dom"
 
-
 type PropsType = {
     updateConcertId?: () => void,
     sessionToken: string | null,
@@ -23,10 +22,7 @@ type StateType = {
     location: string,
     description: string,
     comment: string,
-
 }
-
-
 
 class ConcertCreate extends React.Component<PropsType, StateType>{
     constructor(props: PropsType) {
@@ -41,21 +37,16 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
             location: "",
             description: "",
             comment: "",
-
         }
-
     }
 
-    // componentDidMount(){
     createHandleSubmit(event: any) {
-        // This is not console.logging any more
         console.log("create handleSubmit")
         event.preventDefault()
         fetch(`http://localhost:4000/concerts/create`, {
             method: "POST",
             body: JSON.stringify({
                 concert: {
-                    // id: this.state.id,
                     bandName: this.state.bandName,
                     openingAct: this.state.openingAct,
                     dateAttended: this.state.dateAttended,
@@ -78,14 +69,12 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
     }
 
     handleOpen = () => {
-        // event.preventDefault()
         this.setState({ open: true })
     }
 
     handleClose = () => {
         this.setState({ open: false })
     }
-
 
     style = {
         position: 'absolute' as 'absolute',
@@ -99,13 +88,9 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
         p: 4,
     };
 
-
-
     render() {
         return (
             <div>
-                {/* <h1>ConcertCreate Component</h1> */}
-                {/* <Button variant="contained"{...this.state.open}>Create Button</Button> */}
                 <Button id="addShow" className="add_a_show" variant="contained" color="secondary" onClick={this.handleOpen}>Add a Show</Button>
                 <Modal
                     open={this.state.open}
@@ -118,9 +103,13 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 My New Concert Experience
                             </Typography>
+                            <div id="closeBtn">
+                                <Button id="Btn" className="closeBtn" onClick={this.handleClose}>X</Button>
+                            </div>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 Put in all of the details you don't want to forget!
                                 <Box
+                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)' }}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -132,62 +121,58 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                                         value={this.state.bandName}
                                         onChange={(e) => { this.setState({ bandName: e.target.value }) }}
                                         label="Band Name"
-                                        color="secondary"
+                                        color="error"
                                         focused
                                         helperText="Band Name" />
                                     <TextField
                                         value={this.state.openingAct}
                                         onChange={(e) => { this.setState({ openingAct: e.target.value }) }}
                                         label="Opening Act"
-                                        color="secondary"
+                                        color="error"
                                         focused
                                         helperText="Opening Act" />
                                     <TextField
                                         value={this.state.dateAttended}
                                         onChange={(e) => { this.setState({ dateAttended: e.target.value }) }}
                                         label="Date of Show"
-                                        color="secondary"
+                                        color="error"
                                         focused
                                         helperText="Date of the show" />
                                     <TextField
                                         value={this.state.location}
                                         onChange={(e) => { this.setState({ location: e.target.value }) }}
                                         label="Location"
-                                        color="secondary"
+                                        color="error"
                                         focused
                                         helperText="Location" />
                                     <TextField
                                         value={this.state.description}
                                         onChange={(e) => { this.setState({ description: e.target.value }) }}
                                         label="Description"
-                                        color="secondary"
+                                        color="error"
                                         focused
                                         helperText="Description" />
                                     <TextField
                                         value={this.state.comment}
                                         onChange={(e) => { this.setState({ comment: e.target.value }) }}
                                         label="Comment"
-                                        color="secondary"
+                                        color="error"
                                         focused
                                         helperText="Comment" />
-
                                 </Box>
                             </Typography>
                             <Link to="/concerts/ConcertDisplay"><Button
+                                id="Btn"
                                 variant="contained"
-                                color="secondary"
+                                color="error"
                                 onClick={(e) => { this.createHandleSubmit(e) }}>Add</Button>
                             </Link>
-
                         </Box>
                     </FormGroup>
                 </Modal>
-
-
             </div>
         );
     }
 }
-
 
 export default ConcertCreate;

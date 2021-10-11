@@ -2,7 +2,6 @@ import React from "react";
 import ConcertDisplay from "./ConcertDisplay"
 import Navbar from "../home/Navbar";
 
-
 type Concerts = {
     id: string,
     bandName: string,
@@ -15,39 +14,31 @@ type Concerts = {
 }
 
 type StateType = {
-   concertsList: Concerts[], 
-   username: string,
-   bandName: string,
-   openingAct: string,
-   dateAttended: string,
-   location: string,
-   description: string,
-   comment: string,
-   comments: any,
-   
-  }
+    concertsList: Concerts[],
+    bandName: string,
+    openingAct: string,
+    dateAttended: string,
+    location: string,
+    description: string,
+    comment: string,
+    comments: any,
+}
 
 type PropsType = {
     sessionToken: string | null,
     userRole: string | null;
     username: string | null;
-    concerts?: Concerts []
+    concerts?: Concerts[]
     concertId: string,
     commentId: string,
-    clearToken: ()=> void,
-    // commentId: string,
-    
-   
-}  
-  
+    clearToken: () => void,
+}
 
-
-class ConcertIndex extends React.Component <PropsType, StateType> {
-    constructor(props: PropsType){
+class ConcertIndex extends React.Component<PropsType, StateType> {
+    constructor(props: PropsType) {
         super(props)
-        this.state={
+        this.state = {
             concertsList: [],
-            username: "",
             bandName: "",
             openingAct: "",
             dateAttended: "",
@@ -55,70 +46,64 @@ class ConcertIndex extends React.Component <PropsType, StateType> {
             description: "",
             comment: "",
             comments: [],
-            
-            
-            
-            }
         }
-        
-        componentDidMount(){this.fetchConcerts()}
+    }
 
-        fetchConcerts = () => {
-            fetch("http://localhost:4000/concerts/mine", {
+    componentDidMount() {
+        this.fetchConcerts()
+    }
+
+    fetchConcerts = () => {
+        fetch("http://localhost:4000/concerts/mine", {
             method: "GET",
-            headers : new Headers ({
+            headers: new Headers({
                 "Content-Type": "application/json",
-                "Authorization" : `${this.props.sessionToken}`
+                "Authorization": `${this.props.sessionToken}`
             })
         })
-            .then(res=>res.json())
-            .then((json)=> {
+            .then(res => res.json())
+            .then((json) => {
                 console.log(json)
-                this.setState({concertsList: json})})
-            .catch(e=> console.log(e))
-            
-        }
-        
+                this.setState({ concertsList: json })
+            })
+            .catch(e => console.log(e))
+    }
 
-        componentDidUpdate(){
-            // this.fetchConcerts()
-            console.log(this.state.concertsList)
-        }
+    componentDidUpdate() {
+        // this.fetchConcerts()
+        console.log(this.state.concertsList)
+    }
 
-        render(){
-            return(
-                <div>
-                    <Navbar 
-                    sessionToken={this.props.sessionToken} 
-                    username={this.props.username} 
+    render() {
+        return (
+            <div>
+                <Navbar
+                    sessionToken={this.props.sessionToken}
+                    username={this.props.username}
                     clearToken={this.props.clearToken}
-                    />
+                />
 
-                    {/* <h1>ConcertIndex Component</h1> */}
-
-                    <ConcertDisplay 
-                    sessionToken={this.props.sessionToken} 
-                    concertId={this.props.concertId} 
-                    concerts={this.state.concertsList} 
-                    bandName={this.state.bandName} 
-                    openingAct={this.state.openingAct} 
-                    dateAttended={this.state.dateAttended} 
-                    location={this.state.location} 
-                    description={this.state.description} 
-                    comment={this.state.comment} 
-                    comments={this.state.comments}  
+                <ConcertDisplay
+                    sessionToken={this.props.sessionToken}
+                    concertId={this.props.concertId}
+                    concerts={this.state.concertsList}
+                    bandName={this.state.bandName}
+                    openingAct={this.state.openingAct}
+                    dateAttended={this.state.dateAttended}
+                    location={this.state.location}
+                    description={this.state.description}
+                    comment={this.state.comment}
+                    comments={this.state.comments}
                     fetchConcerts={this.fetchConcerts}
                     com={this.state.comment}
                     commentId={this.props.commentId}
-                    
-                    />
-                    
-                    
-                    </div>
-                    )
-                }
+                />
+
+            </div>
+        )
+    }
 }
 
 
-            
+
 export default ConcertIndex;

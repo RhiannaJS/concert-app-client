@@ -1,5 +1,4 @@
 import React from "react";
-import CommentCreate from "../concerts/CommentCreate"
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
@@ -12,9 +11,7 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Paper,
 } from "@material-ui/core"
-
 
 type Concerts = {
     id: string,
@@ -27,20 +24,17 @@ type Concerts = {
     comments: any
 }
 
-
 type PropsType = {
     sessionToken: string | null,
-    fetchConcerts: ()=> void,
+    fetchConcerts: () => void,
     concert: Concerts,
     commentId: string,
-    // com: string,
     comment: string,
 }
 
 type StateType = {
     open: boolean,
     comments: [],
-    // com: string,
 }
 
 class ConcertComments extends React.Component<PropsType, StateType>{
@@ -49,21 +43,20 @@ class ConcertComments extends React.Component<PropsType, StateType>{
         this.state = {
             open: false,
             comments: [],
-            // com: this.state.com
         }
     }
 
     fetchCommentDelete = (comment: any) => {
         console.log("Comment Delete")
-        fetch(`http://localhost:4000/comment/comment/delete/${comment.id}`,{
+        fetch(`http://localhost:4000/comment/comment/delete/${comment.id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",
                 "Authorization": `${this.props.sessionToken}`
             })
         })
-        .then((res) => res.json())
-        .then((results) => {this.setState({ comments: results.comments})})
+            .then((res) => res.json())
+            .then((results) => { this.setState({ comments: results.comments }) })
         this.props.fetchConcerts()
         this.commentsMap()
     }
@@ -101,27 +94,37 @@ class ConcertComments extends React.Component<PropsType, StateType>{
                     {console.log(index, comment.content)}
                     {/* {comment.bandName} */}
                     <TableRow key={index}>
-                        
                         <TableCell>{comment.content}</TableCell>
-                       <TableCell>
-                           <CommentEdit sessionToken={this.props.sessionToken}  commentId={comment.id} com={comment.content} fetchConcerts={this.props.fetchConcerts} commentsMap={this.commentsMap}/>
+                        <TableCell>
+                            <CommentEdit
+                                sessionToken={this.props.sessionToken}
+                                commentId={comment.id} com={comment.content}
+                                fetchConcerts={this.props.fetchConcerts}
+                                commentsMap={this.commentsMap} />
                         </TableCell>
-                       <TableCell><Button id="Btn" onClick={(event) => this.fetchCommentDelete(comment)}>Delete</Button></TableCell>
-                        {/* <TableCell>{comment.dateAttended}</TableCell>
-                        <TableCell>{comment.comments}</TableCell> */}
-                        {/* <TableCell>{comment.content.bandName}</TableCell> */}
+                        <TableCell>
+                            <Button
+                                id="Btn"
+                                onClick={(event) => this.fetchCommentDelete(comment)}>
+                                Delete
+                            </Button>
+                        </TableCell>
                     </TableRow>
-
                 </div>
             )
-
         })
     }
 
     render() {
         return (
             <div>
-                <Button id="Btn" variant="contained" color="secondary" onClick={this.handleOpen}>Comments</Button>
+                <Button
+                    id="Btn"
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.handleOpen}>
+                    View Comments
+                </Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -129,23 +132,36 @@ class ConcertComments extends React.Component<PropsType, StateType>{
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={this.style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2">
                             <TableContainer>
                                 <div id="closeBtn">
-                            <Button className="closeBtn" onClick={this.handleClose}>X</Button>
-                            </div>
+                                    <Button
+                                        className="closeBtn"
+                                        onClick={this.handleClose}>
+                                        X
+                                    </Button>
+                                </div>
                                 <h4>{this.props.concert.bandName}</h4>
                                 <p>{this.props.concert.dateAttended}</p>
-                                <Table id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)'}}>
+                                <Table
+                                    id="cmtTbl"
+                                    style={{ backgroundColor: 'rgb(82, 82, 82)' }}>
                                     <TableHead>
                                         <TableRow className="commentRow">
-                                            {this.commentsMap()}
+                                            <TableBody>
+                                                {this.commentsMap()}
+                                            </TableBody>
                                         </TableRow>
                                     </TableHead>
                                 </Table>
                             </TableContainer>
                         </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+                        <Typography
+                            id="modal-modal-description"
+                            sx={{ mt: 2 }} >
                         </Typography>
                     </Box>
                 </Modal>
