@@ -12,6 +12,7 @@ type StateType = {
     username: string;
     password: string;
     email: string;
+    error: boolean
 }
 
 export default class Login extends React.Component<PropsType, StateType>{
@@ -22,6 +23,7 @@ export default class Login extends React.Component<PropsType, StateType>{
             username: "",
             password: "",
             email: "",
+            error: false,
         }
     }
 

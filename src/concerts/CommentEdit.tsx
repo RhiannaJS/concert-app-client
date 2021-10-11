@@ -123,9 +123,10 @@ class CommentEdit extends React.Component<PropsType, StateType> {
                                     autoComplete="off"
                                 >
                                     <TextField
+                                        fullWidth
+                                        id="fullWidth"
                                         value={this.state.com}
                                         onChange={(e) => { this.setState({ com: e.target.value }) }}
-                                        id="outlined-basic"
                                         variant="outlined"
                                         label="Comment"
                                         color="error"

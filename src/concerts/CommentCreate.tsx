@@ -12,7 +12,7 @@ type PropsType = {
     concertId: string,
     bandName: string,
     comment: string,
-    fetchConcerts: ()=> void,
+    fetchConcerts: () => void,
 
 }
 
@@ -102,7 +102,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
 
                                 <br />
                                 <Box
-                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)'}}
+                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)' }}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -111,10 +111,24 @@ class CommentCreate extends React.Component<PropsType, StateType> {
                                     autoComplete="off"
                                 >
 
-                                    <TextField value={this.state.comment} onChange={(e) => { this.setState({ comment: e.target.value }) }} id="outlined-basic" variant="outlined" label="Comment" color="error" focused helperText="Comment" />
+                                    <TextField
+                                        fullWidth
+                                        value={this.state.comment}
+                                        onChange={(e) => { this.setState({ comment: e.target.value }) }}
+                                        id="outlined-basic"
+                                        variant="outlined"
+                                        label="Comment"
+                                        color="error"
+                                        focused
+                                        helperText="Comment" />
                                 </Box>
                             </Typography>
-                            <Button id="Btn" variant="contained" color="secondary" onClick={(e) => { this.fetchCommentCreate(e) }}>Add
+                            <Button
+                                id="Btn"
+                                variant="contained"
+                                color="secondary"
+                                onClick={(e) => { this.fetchCommentCreate(e) }}>
+                                Add
                             </Button>
                         </Box>
                     </FormGroup>
