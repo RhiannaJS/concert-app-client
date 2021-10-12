@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import APIURL from "../helpers/environment"
 import {
     Table,
     TableBody,
@@ -49,7 +50,7 @@ class ConcertsGetAll extends React.Component<PropsType, StateType> {
     // All Concerts Fetch
     fectchAllConcerts = () => {
         console.log("all concerts")
-        fetch("http://localhost:4000/concerts/all", {
+        fetch(`${APIURL}/concerts/all`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

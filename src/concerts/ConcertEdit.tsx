@@ -1,10 +1,12 @@
-import React from "react";
+import React from "react"
 import Box from "@mui/material/Box"
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import TextField from "@mui/material/TextField"
 import FormGroup from "@mui/material/FormGroup"
+import APIURL from "../helpers/environment"
+
 
 type Concerts = {
     id: string,
@@ -21,8 +23,8 @@ type PropsType = {
     sessionToken: string | null,
     concertId: string,
     concert: Concerts
-    fetchConcerts: ()=> void,
-    concertMap: ()=> void,
+    fetchConcerts: () => void,
+    concertMap: () => void,
 }
 
 type StateType = {
@@ -51,11 +53,11 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
         }
     }
 
-// Concert Edit Fetch
+
     // componentDidMount() 
     fetchEditConcerts = (concertId: any) => {
         console.log("edit fetchEditConcerts")
-        fetch(`http://localhost:4000/concerts/update/${this.props.concertId}`, {
+        fetch(`${APIURL}/concerts/update/${this.props.concertId}`, {
             method: "PUT",
             body: JSON.stringify({
                 concert: {
@@ -107,26 +109,40 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
 
             <div>
                 {/* {console.log(this.props)} */}
-                <Button id="Btn" variant='contained' onClick={this.handleOpen}>Edit Show</Button>
+                <Button
+                    id="Btn"
+                    variant='contained'
+                    onClick={this.handleOpen}>
+                    Edit Show
+                </Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-
                     <FormGroup onSubmit={this.fetchEditConcerts}>
                         <Box sx={this.style}>
                             <div id="closeBtn">
-                                <Button className="closeBtn" onClick={this.handleClose}>X</Button>
+                                <Button
+                                    className="closeBtn"
+                                    onClick={this.handleClose}>
+                                    X
+                                </Button>
                             </div>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                component="h2">
                                 Edit a Show
                             </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Typography
+                                id="modal-modal-description"
+                                sx={{ mt: 2 }}>
                                 <br />
                                 <Box
-                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)' }}
+                                    id="cmtTbl"
+                                    style={{ backgroundColor: 'rgb(82, 82, 82)' }}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -152,8 +168,8 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                         label="Opening Act"
                                         variant="outlined"
                                         color="error"
-                                        focused 
-                                        helperText="Opening Act"/>
+                                        focused
+                                        helperText="Opening Act" />
                                     <br />
                                     <TextField
                                         value={this.state.dateAttended}
@@ -162,8 +178,8 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                         label="Date of Show"
                                         variant="outlined"
                                         color="error"
-                                        focused 
-                                        helperText="Date"/>
+                                        focused
+                                        helperText="Date" />
                                     <br />
                                     <TextField
                                         value={this.state.location}
@@ -172,8 +188,8 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                         label="Location"
                                         variant="outlined"
                                         color="error"
-                                        focused 
-                                        helperText="Location"/>
+                                        focused
+                                        helperText="Location" />
                                     <br />
                                     <TextField
                                         value={this.state.description}
@@ -182,8 +198,8 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                         label="Description"
                                         variant="outlined"
                                         color="error"
-                                        focused 
-                                        helperText="Description"/>
+                                        focused
+                                        helperText="Description" />
                                     <br />
                                     <TextField
                                         value={this.state.comment}
@@ -192,8 +208,8 @@ class ConcertEdit extends React.Component<PropsType, StateType>{
                                         label="Comment"
                                         variant="outlined"
                                         color="error"
-                                        focused 
-                                        helperText="Comment"/>
+                                        focused
+                                        helperText="Comment" />
                                     <br />
                                 </Box>
                             </Typography>

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup"
-
+import APIURL from "../helpers/environment";
 
 type PropsType = {
     sessionToken: string | null,
@@ -34,7 +34,7 @@ class CommentCreate extends React.Component<PropsType, StateType> {
     // componentDidMount() {
     fetchCommentCreate(concertId: any) {
         console.log("fetchCommentCreate")
-        fetch(`http://localhost:4000/comment/comment/${this.props.concertId}`, {
+        fetch(`${APIURL}/comment/comment/${this.props.concertId}`, {
             method: "POST",
             body: JSON.stringify({
                 comment: {

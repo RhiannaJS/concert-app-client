@@ -1,8 +1,10 @@
-import React from "react";
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
+import React from "react"
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import Typography from '@mui/material/Typography'
 import CommentEdit from "./CommentEdit"
+import APIURL from "../helpers/environment"
+
 import {
     Button,
     Table,
@@ -49,7 +51,7 @@ class ConcertComments extends React.Component<PropsType, StateType>{
     // Comment Delete Fetch
     fetchCommentDelete = (comment: any) => {
         console.log("Comment Delete")
-        fetch(`http://localhost:4000/comment/comment/delete/${comment.id}`, {
+        fetch(`${APIURL}/comment/comment/delete/${comment.id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",

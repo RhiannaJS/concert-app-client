@@ -2,6 +2,8 @@ import React from "react";
 import ConcertEdit from "./ConcertEdit";
 import CommentCreate from "./CommentCreate";
 import ConcertComments from "../concerts/ConcertComments"
+import APIURL from "../helpers/environment"
+
 
 
 import {
@@ -60,7 +62,7 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
     // Concert Delete Fetch
     deleteHandleSubmit = (concert: any) => {
         console.log("delete handleSubmit")
-        fetch(`http://localhost:4000/concerts/delete/${concert.id}`, {
+        fetch(`${APIURL}/concerts/delete/${concert.id}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -83,19 +85,38 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
                     <TableCell align="right">{concerts.description}</TableCell>
                     <TableCell align="right">{concerts.comment}</TableCell>
                     <TableCell>
-                        <Button id="Btn" variant="contained" color="secondary"
-                            onClick={(event) => this.deleteHandleSubmit(concerts)}>Delete Show</Button>
+                        <Button
+                            id="Btn"
+                            variant="contained"
+                            color="secondary"
+                            onClick={(event) => this.deleteHandleSubmit(concerts)}>
+                            Delete Show
+                        </Button>
                     </TableCell>
                     <TableCell>
-                        <ConcertEdit concertMap={this.concertMap} fetchConcerts={this.props.fetchConcerts} sessionToken={this.props.sessionToken} concertId={concerts.id} concert={concerts} />
+                        <ConcertEdit
+                            concertMap={this.concertMap}
+                            fetchConcerts={this.props.fetchConcerts}
+                            sessionToken={this.props.sessionToken}
+                            concertId={concerts.id}
+                            concert={concerts} />
                     </TableCell>
                     <TableCell>
-                        <ConcertComments concert={concerts} sessionToken={this.props.sessionToken} commentId={this.props.commentId} fetchConcerts={this.props.fetchConcerts}
+                        <ConcertComments
+                            concert={concerts}
+                            sessionToken={this.props.sessionToken}
+                            commentId={this.props.commentId}
+                            fetchConcerts={this.props.fetchConcerts}
                             comment={this.props.comment}
                         />
                     </TableCell>
                     <TableCell>
-                        <CommentCreate fetchConcerts={this.props.fetchConcerts} sessionToken={this.props.sessionToken} bandName={concerts.bandName} concertId={concerts.id} comment={this.props.comment} />
+                        <CommentCreate
+                            fetchConcerts={this.props.fetchConcerts}
+                            sessionToken={this.props.sessionToken}
+                            bandName={concerts.bandName}
+                            concertId={concerts.id}
+                            comment={this.props.comment} />
                     </TableCell>
                 </TableRow>
             )

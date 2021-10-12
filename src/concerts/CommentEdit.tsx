@@ -1,10 +1,11 @@
-import React from "react";
+import React from "react"
 import Box from "@mui/material/Box"
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import TextField from "@mui/material/TextField"
 import FormGroup from "@mui/material/FormGroup"
+import APIURL from "../helpers/environment"
 
 type PropsType = {
     sessionToken: string | null,
@@ -32,7 +33,7 @@ class CommentEdit extends React.Component<PropsType, StateType> {
     // componentDidMount() {
     fetchCommentEdit = (com: any) => {
         console.log("fetchCommentEdit")
-        fetch(`http://localhost:4000/comment/comment/update/${this.props.commentId}`, {
+        fetch(`${APIURL}/comment/comment/update/${this.props.commentId}`, {
             method: "PUT",
             body: JSON.stringify({
                 comment: {

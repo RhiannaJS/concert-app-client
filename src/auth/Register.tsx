@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
+import APIURL from "../helpers/environment";
 
 type StateType = {
     username: string,
@@ -29,7 +30,7 @@ class Register extends React.Component <PropsType, StateType> {
         // componentDidUpdate()?
         handleSubmit = (event: any) => {
             event.preventDefault();
-            fetch("http://localhost:4000/user/register", {
+            fetch(`${APIURL}/user/register`, {
                 method: "POST",
                 body: JSON.stringify({user: {username: this.state.username, email: this.state.email, password: this.state.password}}),
                 headers: new Headers ({
