@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@material-ui/core/Button';
+import APIURL from "../helpers/environment"
 
 type PropsType = {
     updateSessionToken: (newToken: string) => void;
@@ -31,7 +32,7 @@ export default class Login extends React.Component<PropsType, StateType>{
     handleSubmit = (event: any) => {
         console.log("handlesSubmit hit")
         event.preventDefault();
-        fetch("http://localhost:4000/user/login", {
+        fetch(`${APIURL}/user/login`, {
             method: "POST",
             body: JSON.stringify({ user: { username: this.state.username, password: this.state.password } }),
             headers: new Headers({

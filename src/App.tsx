@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Auth from "./auth/Auth"
-import { Route, Link, Switch, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import SwitchController from './site/SwitchController';
 
 type Concerts = {

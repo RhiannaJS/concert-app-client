@@ -6,6 +6,8 @@ import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup"
 import { Link } from "react-router-dom"
+import APIURL from "../helpers/environment"
+
 
 type PropsType = {
     updateConcertId?: () => void,
@@ -44,7 +46,7 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
     createHandleSubmit(event: any) {
         console.log("create handleSubmit")
         event.preventDefault()
-        fetch(`http://localhost:4000/concerts/create`, {
+        fetch(`${APIURL}/concerts/create`, {
             method: "POST",
             body: JSON.stringify({
                 concert: {
@@ -92,7 +94,14 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
     render() {
         return (
             <div>
-                <Button id="addShow" className="add_a_show" variant="contained" color="secondary" onClick={this.handleOpen}>Add a Show</Button>
+                <Button
+                    id="addShow"
+                    className="add_a_show"
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.handleOpen}>
+                    Add a Show
+                </Button>
                 <Modal
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -101,16 +110,27 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                 >
                     <FormGroup onSubmit={this.createHandleSubmit}>
                         <Box sx={this.style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                component="h2">
                                 My New Concert Experience
                             </Typography>
                             <div id="closeBtn">
-                                <Button id="Btn" className="closeBtn" onClick={this.handleClose}>X</Button>
+                                <Button
+                                    id="Btn"
+                                    className="closeBtn"
+                                    onClick={this.handleClose}>
+                                    X
+                                </Button>
                             </div>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <Typography
+                                id="modal-modal-description"
+                                sx={{ mt: 2 }}>
                                 Put in all of the details you don't want to forget!
                                 <Box
-                                    id="cmtTbl" style={{ backgroundColor: 'rgb(82, 82, 82)' }}
+                                    id="cmtTbl"
+                                    style={{ backgroundColor: 'rgb(82, 82, 82)' }}
                                     component="form"
                                     sx={{
                                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -162,11 +182,14 @@ class ConcertCreate extends React.Component<PropsType, StateType>{
                                         helperText="Comment" />
                                 </Box>
                             </Typography>
-                            <Link to="/concerts/ConcertDisplay"><Button
-                                id="Btn"
-                                variant="contained"
-                                color="error"
-                                onClick={(e) => { this.createHandleSubmit(e) }}>Add</Button>
+                            <Link to="/concerts/ConcertDisplay">
+                                <Button
+                                    id="Btn"
+                                    variant="contained"
+                                    color="error"
+                                    onClick={(e) => { this.createHandleSubmit(e) }}>
+                                    Add
+                                </Button>
                             </Link>
                         </Box>
                     </FormGroup>

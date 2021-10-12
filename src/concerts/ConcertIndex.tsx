@@ -1,6 +1,8 @@
-import React from "react";
+import React from "react"
 import ConcertDisplay from "./ConcertDisplay"
-import Navbar from "../home/Navbar";
+import Navbar from "../home/Navbar"
+import APIURL from "../helpers/environment"
+
 
 type Concerts = {
     id: string,
@@ -53,9 +55,8 @@ class ConcertIndex extends React.Component<PropsType, StateType> {
         this.fetchConcerts()
     }
 
-    // Get Mine Fetch
     fetchConcerts = () => {
-        fetch("http://localhost:4000/concerts/mine", {
+        fetch(`${APIURL}/concerts/mine`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
