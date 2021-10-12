@@ -9,3 +9,5 @@ switch (window.location.hostname) {
 }
 
 export default APIURL;
+
+// Environment File
