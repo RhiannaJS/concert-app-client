@@ -66,9 +66,9 @@ This is a simple application intended to be a social media site, where users can
 
 [Server Repo](https://github.com/RhiannaJS/concert-app-server)
 
-[Deployed Client]()
+[Deployed Client](https://rjs-concert-app.herokuapp.com)
 
-[Deployed Server]()
+[Deployed Server](rjs-my-concert-experience.herokuapp.com)
 
 [Postman Endpoint Tests](https://app.getpostman.com/run-collection/e2f2c9a90610a9ed3b00?action=collection%2Fimport)
 
