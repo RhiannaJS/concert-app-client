@@ -25,7 +25,7 @@ class Register extends React.Component <PropsType, StateType> {
         }
 
     }
-    // Register Fetch
+    // User Register Fetch
         // componentDidUpdate()?
         handleSubmit = (event: any) => {
             event.preventDefault();

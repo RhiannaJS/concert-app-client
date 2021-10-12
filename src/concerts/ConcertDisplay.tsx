@@ -57,6 +57,7 @@ class ConcertDisplay extends React.Component<PropsType, StateType> {
         }
     }
 
+    // Concert Delete Fetch
     deleteHandleSubmit = (concert: any) => {
         console.log("delete handleSubmit")
         fetch(`http://localhost:4000/concerts/delete/${concert.id}`, {

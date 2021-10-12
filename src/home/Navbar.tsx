@@ -14,6 +14,7 @@ type PropsType = {
   username: string | null | undefined,
 }
 
+// Stateless Component
 class Navbar extends Component<PropsType, {}> {
   constructor(props: PropsType) {
     super(props)

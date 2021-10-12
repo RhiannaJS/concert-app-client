@@ -46,6 +46,7 @@ class ConcertsGetAll extends React.Component<PropsType, StateType> {
         }
     }
 
+    // All Concerts Fetch
     fectchAllConcerts = () => {
         console.log("all concerts")
         fetch("http://localhost:4000/concerts/all", {

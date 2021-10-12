@@ -46,6 +46,7 @@ class ConcertComments extends React.Component<PropsType, StateType>{
         }
     }
 
+    // Comment Delete Fetch
     fetchCommentDelete = (comment: any) => {
         console.log("Comment Delete")
         fetch(`http://localhost:4000/comment/comment/delete/${comment.id}`, {

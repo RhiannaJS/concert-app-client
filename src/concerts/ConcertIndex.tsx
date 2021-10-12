@@ -53,6 +53,7 @@ class ConcertIndex extends React.Component<PropsType, StateType> {
         this.fetchConcerts()
     }
 
+    // Get Mine Fetch
     fetchConcerts = () => {
         fetch("http://localhost:4000/concerts/mine", {
             method: "GET",

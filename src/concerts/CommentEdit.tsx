@@ -28,6 +28,7 @@ class CommentEdit extends React.Component<PropsType, StateType> {
         }
     }
 
+    // Comment Edit Fetch
     // componentDidMount() {
     fetchCommentEdit = (com: any) => {
         console.log("fetchCommentEdit")

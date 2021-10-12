@@ -44,6 +44,7 @@ type ControllerProps = {
     allConcerts: Concerts[],
 };
 
+// Routes
 const SwitchController: FC<ControllerProps> = (props) => {
     console.log("switchController:", props.sessionToken);
     return (
